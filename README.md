@@ -3,10 +3,10 @@ Play for Scala Sample Applications
 
 This repository contains the sample applications for [Play for Scala](http://bit.ly/playscala)
 
-All applications are updated for Play 2.0.4
+All applications are updated for *Play 2.0.4*.
 
 License: MIT
-============
+------------
 
 Copyright (C) 2012 Peter Hilton, Erik Bakker and Francisco Canedo
 
