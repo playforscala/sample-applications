@@ -1,0 +1,39 @@
+@(error: Option[String])
+
+@main("Amazon S3 Upload Sample") {
+  <h1>Upload file to Amazon S3</h1>
+  @error.map { error =>
+    <div class="alert alert-error">
+      @error
+    </div>
+  }
+  <input id="file" type="file" name="file" />
+  <div id="result"></div>
+  <script type="text/javascript">
+  
+  $(function(){
+	handleFile = function(event) {
+      var file = event.target.files.item(0)
+      var xhr = new XMLHttpRequest();
+      
+      xhr.onreadystatechange = function() {
+    	if(xhr.readyState == 4) {
+          $('#result').text(xhr.responseText)
+    	}
+      }
+      
+      // You can use xhr.upload to get progress etc, but skipped for this sample.
+      xhr.open("PUT", 'amazons3upload/file') // TODO, use router 
+      xhr.send(file)
+	}
+	  
+	//Check for the various File API support.
+	if (window.File && window.FileReader && window.FileList && window.Blob) {
+	  $('#file').change(handleFile)
+	} else {
+	  alert('The File APIs are not fully supported in this browser.');
+	}
+  })
+
+  </script>
+}

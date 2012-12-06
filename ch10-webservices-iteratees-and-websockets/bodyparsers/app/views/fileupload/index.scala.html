@@ -1,0 +1,10 @@
+@main("File Upload Sample") {
+  <h1>Upload file</h1>
+  <form action="@routes.FileUpload.file()" enctype="multipart/form-data" method="post">
+    <input type="file" name="file">
+    <p>
+      <input type="submit">
+    </p>
+  </form>
+ 
+}
