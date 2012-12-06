@@ -1,0 +1,25 @@
+@(error: Option[String])(implicit requestHeader: RequestHeader)
+@main("Live Twitter Streaming") {
+@error.map { error => <div class="alert">@error</div> }
+<script type="text/javascript">
+  $(function() {
+
+	ws = new WebSocket("@routes.TwitterStreaming.stream.webSocketURL()");
+
+	$target = $('#feed');
+	i = 0;
+    ws.onmessage = function(msg) {
+      var tweet = JSON.parse(msg.data);
+      var $li = $('<li>').attr('id', 'tweet-' + i).text(tweet.text);
+      $li.prependTo($target)
+      // Remove an old one.
+      $target.find('#tweet-' + (i - 50)).remove()
+      i++
+    }
+
+  })
+</script>
+<h1>Live Twitter Feed</h1>
+<ul id="feed">
+</ul>
+}

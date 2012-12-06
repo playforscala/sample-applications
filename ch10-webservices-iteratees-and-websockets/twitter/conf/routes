@@ -1,0 +1,21 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index
+
+# Using the Twitter REST API
+GET		/papercliptweets			controllers.TwitterRest.blocking
+GET		/papercliptweets-async		controllers.TwitterRest.nonblocking
+GET		/papercliptweets-cached		controllers.TwitterRest.cached
+GET		/papercliptweets-cached2	controllers.TwitterRest.cached2
+
+# Using the Twitter Streaming API
+GET		/twitterstream				controllers.TwitterStreaming.index
+GET		/twitterstream/stream.json	controllers.TwitterStreaming.stream
+
+GET		/twitterstreamlog			controllers.TwitterStreamLog.streamAndLog
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

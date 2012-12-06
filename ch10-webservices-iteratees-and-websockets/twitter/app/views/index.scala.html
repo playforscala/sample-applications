@@ -1,0 +1,12 @@
+@(message: String)
+
+@main("Twitter sample app") {
+    
+   <h1>Twitter sample app</h1>
+   <ul>
+     <li><a href="@routes.TwitterRest.blocking()">Twitter REST API Blocking Sample</a></li>
+     <li><a href="@routes.TwitterRest.nonblocking()">Twitter REST API Non-Blocking Sample</a></li>
+     <li><a href="@routes.TwitterStreaming.index()">Twitter Streaming API Sample</a></li>
+   </ul>
+    
+}

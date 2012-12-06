@@ -1,0 +1,11 @@
+@(tweets: Seq[Tweet])
+
+@main("Tweets!") {
+  <h1>Tweets:</h1>
+  
+  @tweets.map { tweet =>
+  <ul>
+    <li><span>@tweet.from</span>: @tweet.text
+  </ul>
+  }
+}
