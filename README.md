@@ -1,9 +1,26 @@
 Play for Scala Sample Applications
 ==================================
 
-This repository contains the sample applications for [Play for Scala](http://bit.ly/playscala)
+This repository contains the sample applications for **[Play for Scala](http://bit.ly/playscala)**.
 
-All applications are updated for *Play 2.0.4*.
+The book
+--------
+
+The book [Play for Scala](http://bit.ly/playscala) is published by Manning, and currently available for early access. If you buy the book now, you'll get the first 8 chapters, and the remaining 2 when they are completed.
+
+[![Play for Scala book cover image](https://secure.gravatar.com/avatar/77ed9a5eeafbf0c0fc4a0dc53ec0b06d?s=210)](http://bit.ly/playscala)
+
+The samples
+-----------
+
+Most applications are updated for *Play 2.0.4*, and have an index page that shows links to the pages that demo the features of that application.
+
+The authors
+-----------
+
+* [Peter Hilton](http://twitter.com/PeterHilton)
+* [Erik Bakker](http://twitter.com/eamelink)
+* [Francisco Canedo](http://twitter.com/fcanedo)
 
 License: MIT
 ------------
