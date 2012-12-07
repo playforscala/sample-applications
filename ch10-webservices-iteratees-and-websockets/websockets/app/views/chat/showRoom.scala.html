@@ -1,0 +1,28 @@
+@(nick: String)(implicit request: RequestHeader)
+
+@main("Chatroom for " + nick) {
+  <h1>Chatroom - You are @nick</h1>
+  <form id="chatform">
+    <input id="text" placeholder="Say something..." />
+    <button type="submit">Say</button>
+  </form>
+  <ul id="messages"></ul>
+
+  <script type="text/javascript">
+  $(function() {
+
+    ws = new WebSocket("@routes.Chat.chatSocket(nick).webSocketURL()")
+
+    ws.onmessage = function(msg) {
+      $('<li />').text(msg.data).appendTo('#messages')
+    }
+
+    $('#chatform').submit(function(){
+      ws.send($('#text').val())
+      $('#text').val("").focus()
+      return false;
+    })
+  })
+  </script>
+
+}

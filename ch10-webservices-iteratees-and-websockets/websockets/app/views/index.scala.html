@@ -1,0 +1,16 @@
+@(message: String)
+
+@main("Websockets sample app") {
+
+   <h1>Websockets sample app</h1>
+   <ul>
+     <li><a href="@routes.WebSockets.statusPage()">WebSockets powered status page</a></li>
+   </ul>
+   <h1>Chatroom</h1>
+   <ul>
+     <li><a target="_blank" href="@routes.Chat.showRoom("Peter")">Join as user Peter</a>
+     <li><a target="_blank" href="@routes.Chat.showRoom("Erik")">Join as user Erik</a>
+     <li><a target="_blank" href="@routes.Chat.showRoom("Francisco")">Join as user Francisco</a>
+   </ul>
+
+}
