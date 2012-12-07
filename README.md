@@ -13,6 +13,8 @@ The book [Play for Scala](http://bit.ly/playscala) is published by Manning, and 
 The samples
 -----------
 
+This is a work in progress, we're currently busy finishing and uploading the sample applications for the remaining chapters.
+
 Most applications are updated for *Play 2.0.4*, and have an index page that shows links to the pages that demo the features of that application.
 
 The authors
