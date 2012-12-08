@@ -1,0 +1,8 @@
+GET /products   controllers.Products.list()
+
+POST /product/$ean<\d{13}>/delete   controllers.Products.delete(ean: Long)
+
+POST /product2/$ean<\d{13}>/delete   controllers.Products2.delete(ean: Long)
+
+GET  /list   controllers.Products.list()
+GET  /list2   controllers.Products.list()

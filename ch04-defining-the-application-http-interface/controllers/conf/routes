@@ -1,0 +1,15 @@
+GET /                    controllers.Application.home()
+
+GET /products            controllers.Products.list(page: Int ?= 1)
+
+GET /product/:ean        controllers.Products.details(ean: Long)
+
+GET /product/:ean/edit   controllers.Products.edit(ean: Long)
+
+PUT /product/:ean        controllers.Products.update(ean: Long)
+
+
+
+GET /products2           controllers.Products2.list()
+
+GET /products3           controllers.Products3.list(page: Int ?= 1)

@@ -1,0 +1,8 @@
+GET / controllers.Application.home()
+
+GET /photo/*file   controllers.Media.photo(file: String)
+
+# Constraining URL path parameters with regular expressions
+GET /product/$ean<\d{13}>     controllers.Products.details(ean: Long)
+GET /path/*alias        controllers.Products.path(alias: String)
+GET /query               controllers.Products.query(key: String)

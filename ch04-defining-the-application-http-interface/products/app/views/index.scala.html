@@ -1,0 +1,17 @@
+@()
+<!DOCTYPE html>
+<html>
+<head>
+<title>Action mapping examples</title>
+</head>
+<body>
+<h1>Action mapping examples</h1>
+<ol>
+<li><a href='@routes.Media.photo("animals/honeybadger.jpg")'>URL path parameter containing slashes</a></li>
+<li><a href='@routes.Products.details(5010255079763L)'>Parameter that matches a regular expression</a></li>
+<li><a href='@routes.Products.details(5010255079L)'>Parameter that does not match</a></li>
+<li><a href='@routes.Products.path("paper-clips-large-plain-1000-pack")'>URL alias</a></li>
+<li><a href='@routes.Products.query("paper-clips-large-plain-1000-pack")'>URL query string</a></li>
+</ol>
+</body>
+</html>

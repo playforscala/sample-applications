@@ -1,0 +1,18 @@
+GET /            controllers.Products.index()
+
+GET /text        controllers.Products.version()
+GET /html        controllers.Products.index()
+GET /json        controllers.Products.json()
+GET /jsonInline  controllers.Products.jsonInline()
+GET /xml         controllers.Products.xml()
+GET /products    controllers.Products.list()
+GET /product/:ean   controllers.Products.details(ean: Long)
+GET /create      controllers.Products.create()
+GET /content     controllers.Products.contentType()
+GET /contentAs   controllers.Products.contentTypeAs()
+GET /contentAsConstant   controllers.Products.contentTypeAsConstant()
+GET /session     controllers.Products.session()
+GET /flash       controllers.Products.flash()
+
+# Binary
+GET /barcode/:ean controllers.Products.barcode(ean: Long)

@@ -1,0 +1,9 @@
+GET /               controllers.Application.index
+
+GET /images/*file   controllers.Assets.at(path="/public/images", file)
+GET /styles/*file   controllers.Assets.at(path="/public/styles", file)
+
+GET /scripts/*file  controllers.Assets.at(path="/public/scripts", file)
+GET /assets/javascripts/*file   controllers.Assets.at(path="/public/scripts", file)
+
+GET /assets/*file   controllers.Assets.at(path="/public", file)

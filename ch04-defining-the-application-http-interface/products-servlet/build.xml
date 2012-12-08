@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="compile" name="products-servlet">
+
+	<property name="build.dir"	location="classes" />
+	<property name="tomcat.lib" location="${user.home}/Downloads/lib/apache-tomcat-7.0.23/lib" />
+
+	<target name="compile" description="Compile the Servlet">
+		<mkdir dir="${build.dir}" />
+		<javac destdir="${build.dir}" srcdir="." classpath="${tomcat.lib}/servlet-api.jar"/>
+	</target>
+
+</project>

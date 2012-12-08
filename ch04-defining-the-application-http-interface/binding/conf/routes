@@ -1,0 +1,1 @@
+GET /product/$ean<\d{13}>     controllers.Products.details(ean: Long)
