@@ -4,7 +4,6 @@ import javax.servlet.*;
 
 public class ProductsServlet extends HttpServlet {
 
-	// #ch4-servlet
 	public void doGet(HttpServletRequest request,
 	   HttpServletResponse response) throws ServletException, IOException {
 	
@@ -19,6 +18,4 @@ public class ProductsServlet extends HttpServlet {
 		   response.sendError(status, e.getMessage());
 	   }
 	}
-	// #ch4-servlet
-
 }
