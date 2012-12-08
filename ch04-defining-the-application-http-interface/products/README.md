@@ -1,0 +1,1 @@
+Sample application from chapter 4 of [Play for Scala](http://bit.ly/playscala). This is the initial sample application for chapter 4, now made largely obsolete by the _controllers_ and _binding_ sample applications.
