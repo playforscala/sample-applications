@@ -1,0 +1,7 @@
+GET  /            controllers.PickLists.index
+GET  /preview     controllers.PickLists.preview(warehouse: String)
+POST /sendasync   controllers.PickLists.sendAsync(warehouse: String)
+
+GET /backlog/:warehouse   controllers.Dashboard.backlog(warehouse: String)
+
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

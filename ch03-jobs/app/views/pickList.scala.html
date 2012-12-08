@@ -1,0 +1,23 @@
+@(warehouse: String, list: List[models.Preparation],
+  time: java.util.Date)
+
+@main("Warehouse " + warehouse + " pick list for " + time) {
+
+  <table>
+    <tr>
+      <th>Order #</th>
+      <th>Product EAN</th>
+      <th>Product description</th>
+      <th>Quantity</th>
+      <th>Location</th>
+    </tr>
+  @for((preparation, index) <- list.zipWithIndex) {
+    <tr@(if (index % 2 == 0) " class='odd'")>
+      <td>@preparation.orderNumber</td>
+      <td>@preparation.product.ean</td>
+      <td>@preparation.product.description</td>
+      <td>@preparation.quantity</td>
+      <td>@preparation.location</td>
+    </tr> }
+  </table>
+}

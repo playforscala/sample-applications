@@ -1,0 +1,18 @@
+@(title: String)(content: Html)
+<!DOCTYPE html>
+<html>
+<head>
+  <title>@title</title>
+</head>
+<body>
+@content
+
+
+<!-- Output the value of a configuration parameter in a template -->
+@import play.api.Play.current
+<footer>
+  Revision @current.configuration.getString("application.revision")
+</footer>
+
+</body>
+</html>

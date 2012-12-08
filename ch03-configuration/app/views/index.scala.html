@@ -1,0 +1,26 @@
+@(message: String)
+@import play.api.Play.current
+
+<h1>Configuration examples</h1>
+
+<!-- Template ‘tag’ to output a configuration property name and value. -->
+@configuration(property: String) = {
+  <p><code>@property = @play.api.Play.configuration.getString(property)</code></p>
+}
+
+@main("configuration values") {
+
+  @configuration("logger.application")
+  @configuration("search.pagesize")
+  @configuration("db.default.driver")
+  @configuration("db.default.url")
+  @configuration("db.default.user")
+  @configuration("db.default.password")
+  @configuration("db.default.logStatements")
+
+  <!-- Reading a configuration value in a template -->
+  @play.api.Play.configuration.getConfig("db.default").map { databaseConfiguration =>
+    <p><code>driver = @databaseConfiguration.getString("driver")</code></p>
+    <p><code>url = @databaseConfiguration.getString("url")</code></p>
+  }
+}

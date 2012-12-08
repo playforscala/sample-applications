@@ -1,0 +1,3 @@
+GET /   controllers.Application.index
+GET /minimal   controllers.Application.minimal
+GET /title   controllers.Application.title

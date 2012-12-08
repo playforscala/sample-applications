@@ -1,0 +1,16 @@
+@main("Pick lists") {
+
+
+  <form method="post" action="@routes.PickLists.sendAsync("W123")">
+    <p>
+      <button type="submit" class="btn btn-large btn-success">Generate &amp; Send Pick List</button>
+    </p>
+  </form>
+
+  <form method="get" action="@routes.PickLists.preview("")">
+    <p>
+      <input type="hidden" name="warehouse" value="W123">
+      <button type="submit" class="btn btn-large">Preview</button>
+    </p>
+  </form>
+}

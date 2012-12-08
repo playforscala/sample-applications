@@ -1,0 +1,25 @@
+@(title: String)(content: Html)
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pick list</title>
+<link rel="stylesheet" type="text/css" media="screen" href='@routes.Assets.at("stylesheets/bootstrap.css")'>
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+</head>
+<body>
+<div class="screenshot">
+
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="brand" href="#">@title</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    @content
+  </div>
+  </div>
+</body>
+</html>
