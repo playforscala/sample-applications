@@ -1,0 +1,7 @@
+GET /                controllers.Application.index
+
+GET /products        controllers.Products.list
+GET /products/:ean   controllers.Products.details(ean: Long)
+PUT /products/:ean   controllers.Products.save(ean: Long)
+
+GET /assets/*file    controllers.Assets.at(path="/public", file)

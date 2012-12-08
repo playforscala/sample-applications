@@ -1,0 +1,18 @@
+/* Black body text since dark grey doesn't work well in print. */
+body { color:black; }
+
+/* Set font size to be approximately 7pt for an 800px screen shot 127mm wide */
+body, p, label { font-size:15px; }
+
+/* Set the width to result in a suitable resolution at 127mm wide. */
+.screenshot { width: 800px; margin:20px; background-color:#D0E7EF; }
+.navbar-fixed-top, .navbar-fixed-bottom { position:relative; }
+.navbar-fixed-top .navbar-inner { padding-left:20px; }
+.navbar .nav > li > a { color:#bbb; }
+.screenshot > .container { width: 760px; padding: 20px; }
+
+table { border-collapse: collapse; width:100%; position:relative; }
+td { text-align:left; padding: 0.3em 0; border-bottom: 1px solid white; vertical-align:top; }
+tr:hover td, tr:focus td { background-color:white; }
+tr:focus { outline:0; }
+td .label { position:absolute; right:0; }

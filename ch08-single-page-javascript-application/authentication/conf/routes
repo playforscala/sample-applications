@@ -1,0 +1,2 @@
+GET /outline   controllers.Application.outline
+GET /          controllers.Application.index
