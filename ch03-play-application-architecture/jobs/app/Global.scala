@@ -3,6 +3,7 @@ import models.Warehouse
 import play.api.libs.concurrent.Akka
 import play.api.GlobalSettings
 import play.api.templates.Html
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
 /**
  * Application global object, used here to schedule jobs on application start-up.
@@ -12,7 +13,7 @@ object Global extends GlobalSettings {
   override def onStart(application: play.api.Application) {
 
     play.api.Logger.info("Scheduling job...")
-    import akka.util.duration._
+    import scala.concurrent.duration._
     import play.api.Play.current
 
     for (warehouse <- Warehouse.find()) {
@@ -37,7 +38,7 @@ import models.PickList
  */
 class PickListActor(warehouse: String) extends Actor {
 
-  protected def receive = {
+  def receive = {
     case "send" => {
       val pickList = PickList.find(warehouse)
       val html = views.html.pickList(warehouse, pickList, new Date)
