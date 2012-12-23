@@ -11,23 +11,23 @@ This sample is a Scala script (not a Play application) that uses Slick to perfor
 
 2. Create and run a local PostgreSQL database called `slick`, and a user `slick` with password `slick`:
 
-	$ sudo su - postgres
-	$ createuser -S -D -R -P slick
-	Enter password for new role: slick
-	Enter it again: slick
-	CREATE ROLE
-	$ createdb -E UNICODE -O slick slick "Slick example"
-	CREATE DATABASE
-	COMMENT
+		$ sudo su - postgres
+		$ createuser -S -D -R -P slick
+		Enter password for new role: slick
+		Enter it again: slick
+		CREATE ROLE
+		$ createdb -E UNICODE -O slick slick "Slick example"
+		CREATE DATABASE
+		COMMENT
 
 3. Start the database:
 
-	pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+		pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
 
 4. Run the example:
 
-	$ sbt
-	> run
+		$ sbt
+		> run
 
 The output should show the following database query results:
 
