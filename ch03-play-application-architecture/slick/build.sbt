@@ -1,8 +1,6 @@
-organization := "com.manning"
-
 name := "slick"
 
-version := "0.11.2"
+version := "1.0"
 
 scalaVersion := "2.10.0-RC1"
 
