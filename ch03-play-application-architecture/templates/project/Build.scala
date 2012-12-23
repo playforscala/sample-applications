@@ -1,18 +1,18 @@
 import sbt._
 import Keys._
-import PlayProject._
+import play.Project._
 
 object ApplicationBuild extends Build {
 
-    val appName         = "templates"
-    val appVersion      = "0.1"
+  val appName         = "templates"
+  val appVersion      = "0.1"
 
-    val appDependencies = Seq(
-      // Add your project dependencies here,
-    )
+  val appDependencies = Seq(
 
-    val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA).settings(
-      // Add your own project settings here      
-    )
+  )
+
+  val main = play.Project(appName, appVersion, appDependencies).settings(
+  
+  )
 
 }
