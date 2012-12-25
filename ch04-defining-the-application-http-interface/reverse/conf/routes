@@ -1,8 +1,10 @@
 GET /products   controllers.Products.list()
 
-POST /product/$ean<\d{13}>/delete   controllers.Products.delete(ean: Long)
+# TODO: change [0-9] back to \d in 2.1 - see
+# https://play.lighthouseapp.com/projects/82401/tickets/745-invalid-escape-charachter-in-routes-when-using-regex-in-21-09142012
+POST /product/$ean<[0-9]{13}>/delete   controllers.Products.delete(ean: Long)
 
-POST /product2/$ean<\d{13}>/delete   controllers.Products2.delete(ean: Long)
+POST /product2/$ean<[0-9]{13}>/delete   controllers.Products2.delete(ean: Long)
 
 GET  /list   controllers.Products.list()
 GET  /list2   controllers.Products.list()

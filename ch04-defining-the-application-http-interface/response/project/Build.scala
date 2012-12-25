@@ -1,20 +1,20 @@
 import sbt._
 import Keys._
-import PlayProject._
+import play.Project._
 
 object ApplicationBuild extends Build {
 
-    val appName         = "response"
-    val appVersion      = "1.0"
+  val appName         = "response"
+  val appVersion      = "1.0"
 
     // #ch4-response-binary-dependency
-    val appDependencies = Seq(
+  val appDependencies = Seq(
       "net.sf.barcode4j" % "barcode4j" % "2.0"
-    )
+  )
     // #ch4-response-binary-dependency
 
-    val main = PlayProject(appName, appVersion, appDependencies).settings(
-      // Add your own project settings here      
-    )
+  val main = play.Project(appName, appVersion, appDependencies).settings(
+  
+  )
 
 }
