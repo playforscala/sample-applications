@@ -4,4 +4,6 @@ GET /products        controllers.Products.list
 GET /products/:ean   controllers.Products.details(ean: Long)
 PUT /products/:ean   controllers.Products.save(ean: Long)
 
+GET /products/:ean/combinators   controllers.ProductsWithCombinators.details(ean: Long)
+
 GET /assets/*file    controllers.Assets.at(path="/public", file)

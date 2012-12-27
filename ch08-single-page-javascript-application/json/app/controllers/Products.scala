@@ -4,6 +4,8 @@ import play.api.mvc._
 import play.api.mvc.Controller
 import models.Product
 import play.api.libs.json._
+import play.api.libs.functional.syntax._
+
 
 /**
  * Controller for products HTTP interface.
@@ -43,13 +45,11 @@ object Products extends Controller {
   /**
    * Parses a JSON object
    */
-  implicit object ProductReads extends Reads[Product] {
-    def reads(json: JsValue) = Product(
-      (json \ "ean").as[Long],
-      (json \ "name").as[String],
-      (json \ "description").as[String]
-    )
-  }
+  implicit val productReads = (
+    (JsPath \ "ean").read[Long] and
+    (JsPath \ "name").read[String] and
+    (JsPath \ "description").read[String]
+  )(Product.apply _)
 
   /**
    * Saves a product
