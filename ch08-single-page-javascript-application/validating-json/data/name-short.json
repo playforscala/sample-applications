@@ -1,0 +1,18 @@
+{
+  "name": "Blue",
+  "ean": 5010255079763,
+  "description": "Big box of paper clips",
+  "pieces": 500,
+  "manufacturer": {
+    "name": "Paperclipfactory Inc.",
+    "contact_details": {
+      "email": "contact@paperclipfactory.example.com",
+      "phone": ""
+    }
+  },
+  "tags": [
+    "paperclip",
+    "coated"
+  ],
+  "active": true
+}

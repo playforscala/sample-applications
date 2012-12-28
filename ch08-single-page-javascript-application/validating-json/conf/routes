@@ -1,0 +1,4 @@
+GET  /           controllers.Application.index
+POST /products   controllers.Products.validate
+
+GET /assets/*file               controllers.Assets.at(path="/public", file)

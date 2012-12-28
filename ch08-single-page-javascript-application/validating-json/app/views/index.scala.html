@@ -1,0 +1,27 @@
+@main("Validating JSON") {
+
+  <p>Send an HTTP POST request to <code>/products</code> with a <code>Content-Type: application/json</code> header and a request body such as:</p>
+
+  <pre><code>{
+  "name": "Blue Paper clips",
+  "ean": 12345432123,
+  "description": "Big box of paper clips",
+  "pieces": 500,
+  "manufacturer": {
+    "name": "Paperclipfactory Inc.",
+    "contact_details": {
+      "email": "contact@@paperclipfactory.example.com",
+      "fax": null,
+      "phone": "+12345654321"
+    }
+  },
+  "tags": [
+    "paperclip",
+    "coated"
+  ],
+  "active": true
+}</code></pre>
+
+  <p>From the command line:</p>
+  <p><code>curl --include -X POST -H "Content-Type: application/json" --data-binary @@data/valid.json  "http://localhost:9000/products"</code></p>
+}

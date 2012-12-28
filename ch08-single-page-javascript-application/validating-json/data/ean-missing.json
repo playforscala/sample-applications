@@ -1,0 +1,18 @@
+{
+  "name": "Blue Paper clips",
+  "description": "Big box of paper clips",
+  "pieces": 500,
+  "manufacturer": {
+    "name": "Paperclipfactory Inc.",
+    "contact_details": {
+      "email": "contact@paperclipfactory.example.com",
+      "fax": null,
+      "phone": "+12345654321"
+    }
+  },
+  "tags": [
+    "paperclip",
+    "coated"
+  ],
+  "active": true
+}
