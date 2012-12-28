@@ -45,7 +45,7 @@ object Products extends Controller {
   /**
    * Parses a JSON object
    */
-  implicit val productReads = (
+  implicit val productReads: Reads[Product] = (
     (JsPath \ "ean").read[Long] and
     (JsPath \ "name").read[String] and
     (JsPath \ "description").read[String]
