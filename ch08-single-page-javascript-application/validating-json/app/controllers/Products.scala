@@ -9,42 +9,50 @@ import models.{Contact, Company, Product}
 
 object Products extends Controller {
 
-  implicit object JsPathWrites extends Writes[JsPath] {
-    def writes(p: JsPath) = JsString(p.toString)
-  }
+  // Define serialisation for JSON validation error messages.
 
-  implicit object ValidationErrorWrites extends Writes[ValidationError] {
-    def writes(e: ValidationError) = Json.toJson(e.message)
-  }
+  implicit val JsPathWrites = Writes[JsPath](p => JsString(p.toString))
 
-  implicit object JsonValidateInvalidWrites extends Writes[Tuple2[JsPath, Seq[ValidationError]]] {
-    def writes(t: Tuple2[JsPath, Seq[ValidationError]]) = Json.obj(
-      "path" -> Json.toJson(t._1),
-      "errors" -> Json.toJson(t._2)
-    )
-  }
+  implicit val ValidationErrorWrites =
+    Writes[ValidationError](e => JsString(e.message))
 
-  implicit val contactReads: Reads[Contact] = (
+  implicit val jsonValidateErrorWrites = (
+    (JsPath \ "path").write[JsPath] and
+    (JsPath \ "errors").write[Seq[ValidationError]]
+    tupled
+  )
+
+  // Define JSON parsers for domain model.
+
+  val contactReads: Reads[Contact] = (
     (JsPath \ "email").readOpt[String](email) and
-    (JsPath \ "fax").readOpt[String] and
-    (JsPath \ "phone").readOpt[String]
+    (JsPath \ "fax").readOpt[String](minLength[String](10)) and
+    (JsPath \ "phone").readOpt[String](minLength[String](10))
   )(Contact.apply _)
 
   implicit val companyReads: Reads[Company] = (
     (JsPath \ "name").read[String] and
-    (JsPath \ "contact_details").read[Contact]
-  )(Company.apply _)
+    (JsPath \ "contact_details").read(
+      (
+        (JsPath \ "email").readOpt[String](email) and
+        (JsPath \ "fax").readOpt[String](minLength[String](10)) and
+        (JsPath \ "phone").readOpt[String](minLength[String](10))
+      )(Contact.apply _))
+    )(Company.apply _)
 
   implicit val productReads: Reads[Product] = (
     (JsPath \ "ean").read[Long] and
     (JsPath \ "name").read[String](minLength[String](5)) and
-    (JsPath \ "description").read[String] and
+    (JsPath \ "description").readOpt[String] and
     (JsPath \ "pieces").readOpt[Int] and
     (JsPath \ "manufacturer").read[Company] and
     (JsPath \ "tags").read[List[String]] and
     (JsPath \ "active").read[Boolean]
   )(Product.apply _)
 
+  /**
+   * Validates a JSON representation of a Product.
+   */
   def validate = Action(parse.json) { implicit request =>
     val json = request.body
     json.validate[Product].fold(

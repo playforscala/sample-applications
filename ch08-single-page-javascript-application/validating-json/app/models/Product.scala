@@ -14,7 +14,7 @@ case class Company(name: String, contactDetails: Contact)
 case class Product(
   ean: Long,
   name: String,
-  description: String,
+  description: Option[String],
   pieces: Option[Int],
   manufacturer: Company,
   tags: List[String],
