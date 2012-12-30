@@ -1,0 +1,12 @@
+{
+  "name": "Blue",
+  "ean": 5010255079763,
+  "pieces": 500,
+  "manufacturer": {
+    "name": "Paperclipfactory Inc.",
+    "contact_details": {
+      "email": "contact…"
+    }
+  },
+  "active": true
+}

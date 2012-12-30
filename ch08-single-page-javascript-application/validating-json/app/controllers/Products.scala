@@ -53,11 +53,17 @@ object Products extends Controller {
   /**
    * Validates a JSON representation of a Product.
    */
-  def validate = Action(parse.json) { implicit request =>
+  def save = Action(parse.json) { implicit request =>
     val json = request.body
     json.validate[Product].fold(
-      valid = ( product => Ok("Valid: ‘%s’" format product.name) ),
-      invalid = ( errors => BadRequest(Json.toJson(errors)) )
+      valid = { product =>
+        Product.save(product)
+        Ok("Saved")
+      },
+      invalid = {
+        errors => BadRequest(Json.toJson(errors))
+//        errors => BadRequest(JsError.toFlatJson(errors))
+      }
     )
   }
   

@@ -1,6 +1,9 @@
 package models
 
-case class Contact(email: Option[String], fax: Option[String], phone: Option[String])
+import play.api.Logger
+
+case class Contact(email: Option[String], fax: Option[String],
+  phone: Option[String])
 
 case class Company(name: String, contactDetails: Contact)
 
@@ -11,11 +14,13 @@ case class Company(name: String, contactDetails: Contact)
  * @param name Product name
  * @param description Product description
  */
-case class Product(
-  ean: Long,
-  name: String,
-  description: Option[String],
-  pieces: Option[Int],
-  manufacturer: Company,
-  tags: List[String],
-  active: Boolean)
+case class Product(ean: Long, name: String,
+  description: Option[String], pieces: Option[Int],
+  manufacturer: Company, tags: List[String], active: Boolean)
+
+object Product {
+
+  def save(product: Product) {
+    Logger.info("Product saved: " + product.name)
+  }
+}
