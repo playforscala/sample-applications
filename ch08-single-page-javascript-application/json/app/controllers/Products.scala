@@ -24,12 +24,10 @@ object Products extends Controller {
    * Formats a Product instance as JSON.
    */
   implicit object ProductWrites extends Writes[Product] {
-    def writes(p: Product) = Json.toJson(
-      Map(
-        "ean" -> Json.toJson(p.ean),
-        "name" -> Json.toJson(p.name),
-        "description" -> Json.toJson(p.description)
-      )
+    def writes(p: Product) = Json.obj(
+      "ean" -> Json.toJson(p.ean),
+      "name" -> Json.toJson(p.name),
+      "description" -> Json.toJson(p.description)
     )
   }
 

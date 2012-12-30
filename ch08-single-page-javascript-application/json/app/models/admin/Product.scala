@@ -1,6 +1,5 @@
 package models.admin
 
-import play.api.libs.json.{JsNumber, Json, Writes}
 
 /**
  * Domain model.
@@ -12,19 +11,19 @@ case class Product(
   price: BigDecimal
 )
 
-import Json._
+object Product {
 
-/**
- * Alternative JSON formatter that includes the price.
- */
-object AdminProductWrites extends Writes[Product] {
-  def writes(p: Product) = toJson(
-    Map(
-      "ean" -> toJson(p.ean),
-      "name" -> toJson(p.name),
-      "description" -> toJson(p.description),
-      "price" -> JsNumber(p.price)
-    )
-  )
+  /**
+   * Alternative JSON formatter that includes the price.
+   */
+  import play.api.libs.json._
+  import play.api.libs.functional.syntax._
+
+  val adminProductWrites: Writes[Product] = (
+    (JsPath \ "ean").write[Long] and
+    (JsPath \ "name").write[String] and
+    (JsPath \ "description").write[String] and
+    (JsPath \ "price").write[BigDecimal]
+  )(unlift(Product.unapply))
+
 }
-
