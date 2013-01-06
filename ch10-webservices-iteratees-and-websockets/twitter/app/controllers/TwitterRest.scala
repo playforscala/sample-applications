@@ -1,10 +1,14 @@
 package controllers
 
+import scala.concurrent.Await
+import scala.concurrent.duration.DurationInt
+
 import models.Tweet
-import models.Tweet.TweetFormats
+import models.Tweet._
 import play.api.Logger
 import play.api.Play.current
 import play.api.cache.{ Cache, Cached }
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.Json
 import play.api.libs.ws.WS
 import play.api.mvc.{ Action, Controller }
@@ -16,7 +20,7 @@ object TwitterRest extends Controller {
     val query = """paperclip OR "paper clip""""
 
     val responsePromise = WS.url("http://search.twitter.com/search.json").withQueryString("q" -> query, "rpp" -> results.toString).get
-    val response = responsePromise.value.get
+    val response = Await.result(responsePromise, 10 seconds)
 
     val tweets = Json.parse(response.body).\("results").as[Seq[Tweet]]
 

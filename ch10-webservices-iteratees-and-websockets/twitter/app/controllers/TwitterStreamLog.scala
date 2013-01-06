@@ -19,13 +19,6 @@ object TwitterStreamLog extends Controller {
     token = Play.configuration getString "twitter.accesstoken" getOrElse "",
     secret = Play.configuration getString "twitter.tokensecret" getOrElse "")
 
-  object StreamTweetReads extends Reads[Tweet] {
-    def reads(json: JsValue): Tweet = {
-      Tweet((json \ "user" \ "name").as[String],
-        (json \ "text").as[String])
-    }
-  }
-
   val loggingIteratee = Iteratee.foreach[Array[Byte]] { chunk =>
     val chunkString = new String(chunk, "UTF-8")
     println(chunkString)
