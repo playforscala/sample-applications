@@ -1,30 +1,32 @@
 package controllers
 
-import play.api._
-import play.api.libs.iteratee.Iteratee
-import play.api.mvc._
-import play.api.libs.iteratee.Enumerator
 import java.lang.management.ManagementFactory
+
+import scala.concurrent.duration.DurationInt
+
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.concurrent.Promise
-import akka.util.duration._
+import play.api.libs.iteratee.{ Enumerator, Iteratee }
+import play.api.mvc.{ Action, Controller, WebSocket }
+import scala.language.postfixOps
 
 object WebSockets extends Controller {
-  
-  def statusPage() = Action { implicit request => 
+
+  def statusPage() = Action { implicit request =>
     Ok(views.html.websockets.statusPage(request))
   }
 
   def statusFeed() = WebSocket.using[String] { implicit request =>
     def getLoadAverage = {
-      "%1.2f" format 
+      "%1.2f" format
         ManagementFactory.getOperatingSystemMXBean.getSystemLoadAverage()
     }
-    
+
     val in = Iteratee.ignore[String]
-    val out = Enumerator.fromCallback { () =>
+    val out = Enumerator.generateM {
       Promise.timeout(Some(getLoadAverage), 3 seconds)
     }
-    
+
     (in, out)
   }
 } 

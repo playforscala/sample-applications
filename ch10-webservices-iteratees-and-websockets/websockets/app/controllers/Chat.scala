@@ -1,18 +1,15 @@
 package controllers
 
-import akka.actor._
+import scala.concurrent.duration.DurationInt
 
-import play.api._
-import play.api.mvc._
-import play.api.libs.json._
-import play.api.libs.iteratee._
-import play.api.libs.concurrent._
-
-import akka.util.Timeout
-import akka.util.duration._
+import akka.actor.{ Actor, Props, actorRef2Scala }
 import akka.pattern.ask
-
+import akka.util.Timeout
 import play.api.Play.current
+import play.api.libs.concurrent.Akka
+import play.api.libs.iteratee.{ Concurrent, Enumerator, Iteratee }
+import play.api.mvc.{ Action, Controller, WebSocket }
+import scala.language.postfixOps
 
 object Chat extends Controller {
 
@@ -26,7 +23,6 @@ object Chat extends Controller {
   def chatSocket(nick: String) = WebSocket.async { request =>
     val channelsFuture = room ? Join(nick)
     channelsFuture.mapTo[(Iteratee[String, _], Enumerator[String])]
-      .asPromise
   }
 }
 
@@ -35,36 +31,33 @@ case class Leave(nick: String)
 case class Broadcast(message: String)
 
 class ChatRoom extends Actor {
-  var users = Map[String, PushEnumerator[String]]()
+  var users = Set[String]()
+  val (enumerator, channel) = Concurrent.broadcast[String]
   def receive = {
     case Join(nick) => {
-      if(!users.contains(nick)) {
-        val enumerator = Enumerator.imperative[String]()
-        val iteratee = Iteratee.foreach[String]{ message =>
+      if (!users.contains(nick)) {
+        val iteratee = Iteratee.foreach[String] { message =>
           self ! Broadcast("%s: %s" format (nick, message))
         }.mapDone { _ =>
           self ! Leave(nick)
         }
-        users += nick -> enumerator
-        broadcast("User %s has joined the room, now %s users"
-          format(nick, users.size))
+        users += nick
+        channel.push("User %s has joined the room, now %s users"
+          format (nick, users.size))
         sender ! (iteratee, enumerator)
       } else {
-    	val enumerator =  Enumerator("nick %s is already in use."
-    	  format nick)
+        val enumerator = Enumerator("nick %s is already in use."
+          format nick)
         val iteratee = Iteratee.ignore
         sender ! (iteratee, enumerator)
       }
     }
     case Leave(nick) => {
       users -= nick
-      broadcast("User %s has left the room, %s users left"
-        format(nick, users.size))
+      channel.push("User %s has left the room, %s users left"
+        format (nick, users.size))
     }
-    case Broadcast(msg: String) => broadcast(msg)
+    case Broadcast(msg: String) => channel.push(msg)
   }
 
-  def broadcast(msg: String) = users.foreach { case (_, enumerator) =>
-    enumerator.push(msg)
-  }
 }
