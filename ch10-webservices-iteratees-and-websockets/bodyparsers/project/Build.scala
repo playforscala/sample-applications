@@ -9,12 +9,12 @@ object ApplicationBuild extends Build {
 
     val appDependencies = Seq(
       // Async-http-client in Play 2.0.3 has a bug preventing S3 uploader to fail.  
-      "com.ning" % "async-http-client" % "1.7.5",
+      "com.ning" % "async-http-client" % "1.7.9",
       // Required for the FeedableBodyGenerator used by S3 uploader.
-      "org.glassfish.grizzly" % "grizzly-http-client" % "1.1"
+      "org.glassfish.grizzly" % "grizzly-http-client" % "1.3"
     )
 
-    val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA).settings(
+    val main = play.Project(appName, appVersion, appDependencies).settings(
       // Add your own project settings here      
     )
 
