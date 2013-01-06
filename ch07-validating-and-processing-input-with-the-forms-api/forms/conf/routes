@@ -1,0 +1,25 @@
+GET		/						controllers.Application.index()
+
+GET		/manualform/createform   controllers.ManualForm.createForm()
+POST    /manualform/create       controllers.ManualForm.create()
+
+GET 	/generatedform/createform controllers.GeneratedForm.createForm()
+POST	/generatedform/create	  controllers.GeneratedForm.create()
+
+GET		/advancedform/createlocaldateform controllers.AdvancedForm.createLocalDateForm()
+POST	/advancedform/createlocaldate controllers.AdvancedForm.createLocalDate()
+
+GET		/variousmappings/form controllers.VariousMappings.form()
+POST	/variousmappings/process		controllers.VariousMappings.process()
+
+GET		/variousmappings/contactsform controllers.VariousMappings.showContactsForm()
+
+GET		/custominput/form	controllers.CustomInput.form()
+
+GET		/fileupload/form controllers.FileUpload.showUploadForm()
+POST	/fileupload/upload controllers.FileUpload.upload()
+POST	/fileupload/upload2 controllers.FileUpload.upload2()
+GET		/fileupload/manualform controllers.FileUpload.showManualUploadForm()
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

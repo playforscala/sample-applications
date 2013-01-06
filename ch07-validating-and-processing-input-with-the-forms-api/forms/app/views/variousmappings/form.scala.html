@@ -1,0 +1,63 @@
+@(form: Form[_])
+
+@import views.html.helper.bootstrap._
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>paperclips.example.com</title>
+<link rel="stylesheet" type="text/css" media="screen" href='@routes.Assets.at("stylesheets/bootstrap.css")'>
+<link rel="stylesheet" type="text/css" media="screen" href='@routes.Assets.at("stylesheets/main.css")'>
+</head>
+<body>
+
+  <div class="screenshot">
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+          </a> <a class="brand" href="#">Product Admin</a>
+
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Products</a></li>
+              <li class="active"><a href="#">Add Product</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <h2>Add Product</h2>
+      @helper.form(action = routes.VariousMappings.process) {
+          
+          @form.globalError.map { error =>
+            <span class="error">@error.message</span>
+            }
+          
+          @helper.inputText(form("optionalText"))
+          
+          <input type="text" name="tags[]" />
+          
+          @helper.repeat(form("tags"), min = 3) { tagField =>
+            @helper.inputText(tagField, '_label -> "Tag")
+          }          
+          
+          
+          @helper.inputText(form("mainContact.name"))
+          @helper.inputText(form("mainContact.email"))
+          @helper.inputText(form("technicalContact.name"))
+          @helper.inputText(form("technicalContact.email"))
+          
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Create Product</button>
+          </div>
+      }
+
+    </div>
+</body>
+</html>

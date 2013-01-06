@@ -1,0 +1,9 @@
+@(myForm: Form[String])
+
+@import views.html.helper._
+
+@helper.inputText(myForm("mydatetime"), '_error -> "Faaack", '_showErrors -> true)
+
+@helper.input(myForm("mydatetime")) { (id, name, value, args) =>
+  <input type="datetime" name="@name" id="@id" @toHtmlArgs(args) />
+}

@@ -1,0 +1,14 @@
+@()
+
+@main("Forms demo application") {
+
+  <h1>Forms demo application</h1>
+
+  <ul>
+    <li><a href="@routes.ManualForm.createForm()">Manually crafted HTML form</a></li>
+    <li><a href="@routes.GeneratedForm.createForm()">Generated HTML form</a></li>
+    <li><a href="@routes.AdvancedForm.createLocalDateForm()">Form with custom LocalDate mapping</a></li>
+    <li><a href="@routes.VariousMappings.form()">Form with various mappings</a>
+
+  </ul>
+}

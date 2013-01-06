@@ -1,0 +1,43 @@
+/* Black body text since dark grey doesn't work well in print. */
+body {
+  color:black;
+}
+
+/* Set font size to be approximately 7pt for an 800px screen shot 127mm wide */
+body, p {
+	font-size:15px;
+}
+.label {
+   font-size:13px;
+   line-height:16px;
+}
+
+/* Replace light-blue alert background with white on dark-blue. */
+.alert-info {
+   border-color:transparent;
+   background-color:#3A87AD;
+   color:white;
+   font-weight:bold;
+}
+
+/* Set the width to result in a suitable resolution at 127mm wide. */
+div.screenshot {
+	width: 800px;
+	margin:20px;
+}
+.navbar-fixed-top .navbar-inner { padding-left:20px; }
+.navbar .nav > li > a { color:#bbb; }
+
+.screenshot > .container {
+	width: 760px;
+	padding: 20px;
+	background-color: #D0E7EF;
+}
+
+.navbar-fixed-top, .navbar-fixed-bottom { position:relative; }
+
+footer p {
+  margin:2em 0 0 0;
+  font-size: 13px;
+  text-transform:uppercase;
+}
