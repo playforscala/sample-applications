@@ -1,0 +1,15 @@
+@(products: Seq[Product])(implicit cart: Cart)
+
+@main("Demo page") {
+
+  <h2>Catalog</h2>
+  <ul>
+  @for(product <- products) {
+    <li>
+      <h3>@product.name</h3>
+      <p class="description">@product.description</p>
+    </li>
+  }
+  </ul>
+
+}

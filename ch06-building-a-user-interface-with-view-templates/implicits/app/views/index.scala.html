@@ -1,0 +1,12 @@
+@()(implicit cart: Cart)
+
+@main("Demo page") {
+
+  <h1>Implicit template parameters demo</h1>
+  <p>This application shows the use of implicit template parameters. The "You have 4 items in your shopping cart" text in the black navigation bar above, is rendered using an implicit <b>Cart</b> object, which is passed through the templates.</p>
+
+  <ul>
+    <li><a href="@routes.Products.catalog">Catalog page</a></li>
+  </ul>
+
+}
