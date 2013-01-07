@@ -1,0 +1,19 @@
+@()(implicit request: RequestHeader)
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Server Status</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(function() {
+        var ws = new WebSocket("@routes.Application.statusFeed.webSocketURL()");
+        ws.onmessage = function(msg) {
+          $('#load-average').text(msg.data)
+        }
+      })
+    </script>
+  </head>
+  <body>
+    <h1>System load average: <span id="load-average"></span></h1>
+  </body>
+</html>
