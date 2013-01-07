@@ -17,7 +17,7 @@
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
           </a> <a class="brand" href="#">Paper-Clip Company Inc.</a>
 
-          @defining(cart.productCount) { count => @count match {
+          @cart.productCount match {
             case 0 => {
               Your shopping cart is empty.
             }
@@ -25,7 +25,7 @@
             case n => {
               You have @n items in your shopping cart.
             }
-          }}
+          }
 
         </div>
       </div>
