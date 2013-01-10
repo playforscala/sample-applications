@@ -11,7 +11,7 @@ object ApplicationBuild extends Build {
       // Async-http-client in Play 2.0.3 has a bug preventing S3 uploader to fail.  
       "com.ning" % "async-http-client" % "1.7.9",
       // Required for the FeedableBodyGenerator used by S3 uploader.
-      "org.glassfish.grizzly" % "grizzly-http-client" % "1.3"
+      "org.glassfish.grizzly" % "grizzly-websockets" % "2.2.19"
     )
 
     val main = play.Project(appName, appVersion, appDependencies).settings(
