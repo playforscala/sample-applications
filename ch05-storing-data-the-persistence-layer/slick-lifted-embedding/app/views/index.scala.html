@@ -1,0 +1,21 @@
+@(products: List[models.Product])
+
+@main {
+  
+  <p><a class="btn btn-primary" href="@routes.Application.resetData()">Reset database</a></p>
+
+  <table>
+    <tr>
+      <th>EAN</th>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+    @for(product <- products) {
+      <tr>
+        <td>@product.ean</td>
+        <td>@product.name</td>
+        <td>@product.description</td>
+      </tr>
+    }
+  </table>
+}
