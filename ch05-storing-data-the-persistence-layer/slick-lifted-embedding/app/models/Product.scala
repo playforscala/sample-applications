@@ -2,8 +2,7 @@ package models
 
 import slick.driver.H2Driver.simple._
 import Database.threadLocalSession
-import play.api.{Play, Configuration, Logger}
-import play.api.Play.current
+import play.api.Logger
 import play.api.db.DB
 
 /**
@@ -32,8 +31,6 @@ object Products extends Table[Product]("products") {
  * Note: declaring a Product companion object breaks the <> mapping above.
  */
 object ProductDatabase {
-
-  val DatabaseUrl = Play.configuration.getString("db.default.url").getOrElse("jdbc:h2:mem:play")
 
   /**
    * Delete all database rows.
@@ -66,5 +63,8 @@ object ProductDatabase {
     Database.forDataSource(DB.getDataSource()) withSession {
       Query(Products).list
     }
+  }
+
+  def getAllProductsWithStockItems: Map[Product, List[StockItem]] = {
   }
 }
