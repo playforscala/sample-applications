@@ -25,26 +25,26 @@ object Products extends Controller {
   // Define JSON parsers for domain model.
 
   val contactReads: Reads[Contact] = (
-    (JsPath \ "email").readOpt[String](email) and
-    (JsPath \ "fax").readOpt[String](minLength[String](10)) and
-    (JsPath \ "phone").readOpt[String](minLength[String](10))
+    (JsPath \ "email").readNullable[String](email) and
+    (JsPath \ "fax").readNullable[String](minLength[String](10)) and
+    (JsPath \ "phone").readNullable[String](minLength[String](10))
   )(Contact.apply _)
 
   implicit val companyReads: Reads[Company] = (
     (JsPath \ "name").read[String] and
     (JsPath \ "contact_details").read(
       (
-        (JsPath \ "email").readOpt[String](email) and
-        (JsPath \ "fax").readOpt[String](minLength[String](10)) and
-        (JsPath \ "phone").readOpt[String](minLength[String](10))
+        (JsPath \ "email").readNullable[String](email) and
+        (JsPath \ "fax").readNullable[String](minLength[String](10)) and
+        (JsPath \ "phone").readNullable[String](minLength[String](10))
       )(Contact.apply _))
     )(Company.apply _)
 
   implicit val productReads: Reads[Product] = (
     (JsPath \ "ean").read[Long] and
     (JsPath \ "name").read[String](minLength[String](5)) and
-    (JsPath \ "description").readOpt[String] and
-    (JsPath \ "pieces").readOpt[Int] and
+    (JsPath \ "description").readNullable[String] and
+    (JsPath \ "pieces").readNullable[Int] and
     (JsPath \ "manufacturer").read[Company] and
     (JsPath \ "tags").read[List[String]] and
     (JsPath \ "active").read[Boolean]
