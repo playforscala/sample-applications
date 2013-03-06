@@ -1,0 +1,1 @@
+GET /:ean com.github.playforscala.barcodes.BarcodesController.barcode(ean: Long)
