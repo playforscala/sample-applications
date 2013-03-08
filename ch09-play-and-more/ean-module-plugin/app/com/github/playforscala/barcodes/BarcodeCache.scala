@@ -5,33 +5,26 @@ import concurrent._
 import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider
 import org.krysalis.barcode4j.impl.upcean.EAN13Bean
 import scala.util.Try
-import play.api.Logger
 import play.api.libs.concurrent.Execution.Implicits._
 
 class BarcodeCache extends Actor {
-  private var imageCache = Map[Long, Future[Array[Byte]]]()
+  var imageCache = Map[Long, Future[Array[Byte]]]()
 
   def receive = {
     case RenderImage(ean) => {
-      Logger.info("Got request for image")
-      val futureImage = this.imageCache.get(ean) match {
-        case Some(futureImage) => {
-          Logger.info("Cache hit")
-          futureImage
-        }
+      val futureImage = imageCache.get(ean) match {
+        case Some(futureImage) => futureImage
         case None => {
-          Logger.info("Cache miss")
           val futureImage = future { ean13BarCode(ean, "image/png") }
-          this.imageCache += (ean -> futureImage)
+          imageCache += (ean -> futureImage)
           futureImage
         }
       }
 
-      val currentSender = sender
+      val client = sender
 
       futureImage.onComplete {
-        Logger.info("Sending image")
-        currentSender ! Image(_)
+        client ! RenderResult(_)
       }
     }
   }
@@ -41,19 +34,18 @@ class BarcodeCache extends Actor {
     import java.io.ByteArrayOutputStream
     import java.awt.image.BufferedImage
 
-    var output: ByteArrayOutputStream = new ByteArrayOutputStream
-    var canvas: BitmapCanvasProvider =
-      new BitmapCanvasProvider(output, mimeType, Barcodes.imageResolution,
-        BufferedImage.TYPE_BYTE_BINARY, false, 0)
+    val output = new ByteArrayOutputStream
+    val canvas = new BitmapCanvasProvider(output, mimeType,
+      Barcodes.imageResolution, BufferedImage.TYPE_BYTE_BINARY, false, 0)
 
-    val barCode = new EAN13Bean()
+    val barCode = new EAN13Bean
     barCode.generateBarcode(canvas, String valueOf ean)
-    canvas.finish
+    canvas.finish()
 
     output.toByteArray
   }
 }
 
-case class RenderImage(ean: Long)
-case class Image(image: Try[Array[Byte]])
+private[barcodes] case class RenderImage(ean: Long)
+private[barcodes] case class RenderResult(image: Try[Array[Byte]])
 
