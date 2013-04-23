@@ -1,0 +1,5 @@
+# Template for an optional developer-specific configuration.
+
+environment = "code monkey dev"
+logger.application = DEBUG
+mail.override.address = "code.monkey@…"
