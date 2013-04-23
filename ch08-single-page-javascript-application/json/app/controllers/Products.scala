@@ -5,6 +5,7 @@ import play.api.mvc.Controller
 import models.Product
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
+import play.api.Logger
 
 
 /**
@@ -53,14 +54,19 @@ object Products extends Controller {
    * Saves a product
    */
   def save(ean: Long) = Action(parse.json) { request =>
-    val productJson = request.body
-    val product = productJson.as[Product]
+    Logger.info("start")
     try {
+      val productJson = request.body
+      val product = productJson.as[Product]
       Product.save(product)
       Ok("Saved")
     }
     catch {
       case e:IllegalArgumentException => BadRequest("Product not found")
+      case e:Exception => {
+        Logger.info("exception = %s" format e)
+        BadRequest("Invalid EAN")
+      }
     }
   }
 
