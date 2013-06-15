@@ -12,7 +12,7 @@ object Application extends Controller {
   }
 
   /**
-   * Renders a template with no parameters.
+   * Renders a minimal HTML template with no parameters.
    */
   def minimal = Action {
     Ok(views.html.minimal())
