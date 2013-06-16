@@ -3,10 +3,11 @@ package controllers
 import models.Product
 import play.api.mvc.{Action, Controller}
 
-/**
- * Reverse routing syntax examples; this application does not produce any output.
- */
 object Products extends Controller {
+
+  def index = Action {
+    Ok("Reverse routing syntax examples; this application does not produce any output.")
+  }
 
   def list = Action {
     NotImplemented      // #A
