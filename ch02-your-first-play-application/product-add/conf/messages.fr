@@ -1,0 +1,15 @@
+application.name = Catalogue des produits
+
+ean = EAN
+name = Nom
+description = Descriptif
+
+products.details = Produit: {0}
+products.form = Details produit
+products.new = (nouveau)
+products.new.command = Ajouter
+products.new.submit = Ajouter
+products.new.success = Produit {0} ajouté.
+
+validation.errors = Veuillez corriger les erreurs sur le formulaire
+validation.ean.duplicate = Un produit avec cette code EAN existe déja

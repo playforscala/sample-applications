@@ -1,0 +1,1 @@
+application.name = Catalogue des produits

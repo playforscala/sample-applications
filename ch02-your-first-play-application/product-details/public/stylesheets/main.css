@@ -1,0 +1,40 @@
+/* Black body text since dark grey doesn't work well in print. */
+body { color:black; }
+
+/* Set font size to be approximately 7pt for an 800px screen shot 127mm wide */
+body, p, label { font-size:15px; }
+.label { font-size:13px; line-height:16px; }
+
+/* Replace light-blue alert background with white on dark-blue. */
+.alert-info { border-color:transparent; background-color:#3A87AD;
+    color:white; font-weight:bold; }
+
+/* Set the width to result in a suitable resolution at 127mm wide. */
+div.screenshot { width: 800px; margin:20px; background-color:#D0E7EF; }
+.navbar-fixed-top .navbar-inner { padding-left:20px; }
+.navbar .nav > li > a { color:#bbb; }
+
+.screenshot > .container { width: 760px; padding: 20px; }
+
+.navbar-fixed-top, .navbar-fixed-bottom { position:relative; }
+
+h1 { font-size:125%; }
+
+table { border-collapse: collapse; width:100%; }
+th, td { text-align:left; padding: 0.3em 0;
+    border-bottom: 1px solid white; }
+tr.odd td { }
+
+form { float:left; margin-right: 1em; }
+legend { border: none; }
+fieldset > div { margin: 12px 0; }
+.help-block { display: inline; vertical-align: middle; }
+.error .help-block { display: none; }
+.error .help-inline { padding-left: 9px; color: #B94A48; }
+
+footer { clear: both; text-align: right; }
+
+/* Products list */
+dl.products { margin-top: 0; }
+dt { clear: right; }
+.barcode { float:right; margin-bottom: 10px; border: 4px solid white; }

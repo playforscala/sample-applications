@@ -1,0 +1,12 @@
+@(products: List[Product])(implicit lang: Lang)
+
+@main(Messages("application.name")) {
+
+  <dl class="products">
+    @for(product <- products) {
+      <dt><a href="@controllers.routes.Products.show(product.ean)">@product.name</a></dt>
+      <dd>@product.description</dd>
+    }
+  </dl>
+
+}
