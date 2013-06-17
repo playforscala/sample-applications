@@ -8,14 +8,14 @@ object ApplicationBuild extends Build {
   val appVersion      = "1.0-SNAPSHOT"
 
   val appDependencies = Seq(
-    // Add your project dependencies here,
     "net.sf.barcode4j" % "barcode4j" % "2.0"
   )
 
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
-    // Add your own project settings here
-    scalacOptions ++= Seq("-feature")
+    publishTo := Some(Resolver.file("Our repository",
+      new File("/Users/paco/writing/playforscala.github.com"))),
+    organization := "playforscala"
   )
 
 }

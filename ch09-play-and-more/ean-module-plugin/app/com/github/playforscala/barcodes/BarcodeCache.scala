@@ -29,7 +29,7 @@ class BarcodeCache extends Actor {
     }
   }
 
-  private def ean13BarCode(ean: Long, mimeType: String): Array[Byte] = {
+  def ean13BarCode(ean: Long, mimeType: String): Array[Byte] = {
 
     import java.io.ByteArrayOutputStream
     import java.awt.image.BufferedImage
@@ -46,6 +46,6 @@ class BarcodeCache extends Actor {
   }
 }
 
-private[barcodes] case class RenderImage(ean: Long)
-private[barcodes] case class RenderResult(image: Try[Array[Byte]])
+case class RenderImage(ean: Long)
+case class RenderResult(image: Try[Array[Byte]])
 
