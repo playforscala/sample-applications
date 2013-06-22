@@ -1,0 +1,9 @@
+GET  /                           controllers.Application.index
+GET  /add                        controllers.Application.blank
+
+POST /product                    controllers.Application.insert
+GET  /product/$ean<\d{13}>       controllers.Application.details(ean: Long)
+POST /product/:id                controllers.Application.update(id: Long)
+POST /product/:id/delete         controllers.Application.delete(id: Long)
+
+GET     /assets/*file            controllers.Assets.at(path="/public", file)

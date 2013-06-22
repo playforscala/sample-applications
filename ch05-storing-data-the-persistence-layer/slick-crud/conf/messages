@@ -1,0 +1,7 @@
+success.delete = Product ‘{0}’ deleted!
+success.insert = Product ‘{0}’ added!
+success.update = Product ‘{0}’ updated!
+
+error.notFound = Product with EAN {0,number,0} not found
+error.number = Not a number
+error.required = Missing value

@@ -1,0 +1,1 @@
+Sample application for chapter 5 of [Play for Scala](http://bit.ly/playscala). This application demonstrates CRUD functionality using Slick, with a Twitter bootstrap UI, for a possible future version of chapter 5.

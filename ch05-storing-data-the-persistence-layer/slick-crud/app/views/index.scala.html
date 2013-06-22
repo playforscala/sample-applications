@@ -1,0 +1,43 @@
+@(products: Seq[Product])(implicit flash: Flash)
+
+@main("Products") {
+
+  @flash.get("error").map { message =>
+    <div class="alert alert-error">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      @message
+    </div>
+  }
+
+  @flash.get("success").map { message =>
+    <div class="alert alert-success">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      @message
+    </div>
+  }
+
+  <p><a href="@routes.Application.blank" class="btn btn-success"><i class="icon-plus icon-white"></i> Add Product</a></p>
+
+  @if(!products.isEmpty) {
+    <table class="table table-striped">
+      <tr>
+        <th>Name</th>
+        <th>EAN</th>
+        <th>Description</th>
+        <th></th>
+      </tr>
+    @for(product <- products) {
+      <tr>
+        <td><a href="@routes.Application.details(product.ean)">@product.name</a></td>
+        <td>@product.ean</td>
+        <td>@product.description</td>
+        <td>
+          <form method="post" action="@routes.Application.delete(product.id.getOrElse(0))">
+            <button class="btn btn-link" type="submit"><i class="icon-trash"></i> Delete</button>
+          </form>
+        </td>
+      </tr>
+    }
+    </table>
+  }
+}

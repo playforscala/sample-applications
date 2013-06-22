@@ -1,0 +1,19 @@
+@(id: Option[Long], product: Form[Product])
+@import views.ViewHelpers._
+
+@main("Product: " + product("name").value.getOrElse("")) {
+
+  @helper.form(action = if (id.isDefined) routes.Application.update(id.get) else routes.Application.insert()) {
+    @helper.inputText(product("name"), '_label -> "Name")
+    @helper.inputText(product("ean"), '_label -> "EAN")
+    @helper.inputText(product("description"), '_label -> "Description", 'class -> "input-xxlarge")
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">
+        @if(id.isDefined) { Save Product } else { Add Product }
+      </button>
+      <a href="@routes.Application.index" class="btn">Cancel</a>
+    </div>
+  }
+
+}
