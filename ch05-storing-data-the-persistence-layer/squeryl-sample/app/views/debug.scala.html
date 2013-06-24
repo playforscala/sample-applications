@@ -1,0 +1,9 @@
+@()(implicit lang: Lang)
+@*
+  Displays debug information for the page footer.
+*@
+
+@import play.api.Play.current
+debug: user=@current.configuration.getString("environment.user"),
+lang=@lang.code,
+date=@(new java.util.Date().format("yyyy-MM-dd"))

@@ -1,0 +1,19 @@
+@(productForm: Form[Product], ean: Option[Long] = None)(implicit flash: Flash, lang: Lang)
+@import helper._
+@import helper.twitterBootstrap._
+
+@main(Messages("products.form")) {
+  <h2>@Messages("products.form")</h2>
+
+  @helper.form(action = ean.map(routes.Products.update(_)).getOrElse(routes.Products.save())) {
+    <fieldset>
+      <legend>
+        @Messages("products.details", productForm("name").value.getOrElse(Messages("products.new")))
+      </legend>
+      @helper.inputText(productForm("ean"))
+      @helper.inputText(productForm("name"))
+      @helper.textarea(productForm("description"))
+    </fieldset>
+    <p><input type="submit" class="btn primary" value='@ean.map(_=> Messages("products.edit.submit")).getOrElse(Messages("products.new.submit"))'></p>
+  }
+}

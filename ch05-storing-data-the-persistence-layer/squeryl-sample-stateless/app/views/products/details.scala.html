@@ -1,0 +1,28 @@
+@*
+  Displays details for one product.
+
+  @param productForm A form for capturing product details.
+  @param flash Flash scope
+*@
+@(product: Product)(implicit flash: Flash, lang: Lang)
+
+@main(Messages("products.details", product.name)) {
+  <h2>
+    @tags.barcode(product.ean)
+    @Messages("products.details", product.name)
+  </h2>
+
+  <dl class="dl-horizontal">
+    <dt>@Messages("ean"):</dt>
+    <dd>@product.ean</dd>
+
+    <dt>@Messages("name"):</dt>
+    <dd>@product.name</dd>
+
+    <dt>@Messages("description"):</dt>
+    <dd>@product.description</dd>
+  </dl>
+  <a href="@controllers.routes.Products.edit(product.ean)" class="btn">
+      <i class="icon-edit"></i> @Messages("products.edit.command")</a>
+  </a>
+}

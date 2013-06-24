@@ -1,0 +1,47 @@
+@(title: String)(content: Html)(implicit flash: Flash, lang: Lang)
+<!DOCTYPE html>
+<html>
+<head>
+  <title>@title</title>
+  <link rel="stylesheet" type="text/css" media="screen" href='@routes.Assets.at("stylesheets/bootstrap.css")'>
+  <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+</head>
+<body>
+<div class="screenshot">
+
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="brand" href="@routes.Application.index()">@Messages("application.name")</a>
+        <ul class="nav">
+          <li class="divider-vertical"></li>
+          <li class="active">
+            <a href="@routes.Products.list()">@Messages("products.list.navigation")</a>
+          </li>
+          <li class="active"><a href="@routes.Products.newProduct()"><i class="icon-plus icon-white"></i>
+            @Messages("products.new.command")</a></li>
+          <li class="divider-vertical"></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    @if(flash.get("success").isDefined){
+      <div class="alert alert-success">
+        @flash.get("success")
+      </div>
+    }
+
+    @if(flash.get("error").isDefined){
+      <div class="alert alert-error">
+        @flash.get("error")
+      </div>
+    }
+    @content
+
+    <footer>@debug()</footer>
+  </div>
+</div>
+</body>
+</html>

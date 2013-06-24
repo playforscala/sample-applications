@@ -1,0 +1,22 @@
+@*
+  Displays a products list.
+
+  @param products A list of products
+  @param flash Flash scope
+*@
+@(products: List[Product])(implicit flash: Flash, request: RequestHeader, lang: Lang)
+
+@main(Messages("products.list")) {
+
+  <dl class="products">
+    @for(product <- products) {
+    <dt>
+      <a href="@controllers.routes.Products.show(product.ean)">@product.name</a>
+    </dt>
+    <dd>@product.description</dd>
+    }
+  </dl>
+
+  <p><a href="@controllers.routes.Products.newProduct()" class="btn">
+    <i class="icon-plus"></i> @Messages("products.new.command")</a></p>
+}
