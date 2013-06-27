@@ -1,11 +1,11 @@
 package controllers
 
 import play.api._
-import libs.concurrent.Akka
 import play.api.mvc._
 import models.PickList
 import templates.Html
 import java.util.Date
+import scala.concurrent.{ExecutionContext, future}
 
 object PickLists extends Controller {
 
@@ -22,8 +22,8 @@ object PickLists extends Controller {
    * Starts a job to generate a pick list.
    */
   def sendAsync(warehouse: String) = Action {
-    import play.api.Play.current
-    Akka.future {
+    import ExecutionContext.Implicits.global
+    future {
       val pickList = PickList.find(warehouse)
       send(views.html.pickList(warehouse, pickList, new Date))
     }
