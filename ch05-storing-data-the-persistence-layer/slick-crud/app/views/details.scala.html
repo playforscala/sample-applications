@@ -1,7 +1,14 @@
-@(id: Option[Long], product: Form[Product])
+@(id: Option[Long], product: Form[Product])(implicit flash: Flash)
 @import views.ViewHelpers._
 
 @main("Product: " + product("name").value.getOrElse("")) {
+
+  @if(product.hasErrors) {
+    <div class="alert alert-error">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      Please fix the validation errors.
+    </div>
+  }
 
   @helper.form(action = if (id.isDefined) routes.Application.update(id.get) else routes.Application.insert()) {
     @helper.inputText(product("name"), '_label -> "Name")

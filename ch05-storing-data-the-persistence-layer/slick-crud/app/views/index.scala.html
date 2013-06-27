@@ -2,20 +2,6 @@
 
 @main("Products") {
 
-  @flash.get("error").map { message =>
-    <div class="alert alert-error">
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-      @message
-    </div>
-  }
-
-  @flash.get("success").map { message =>
-    <div class="alert alert-success">
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-      @message
-    </div>
-  }
-
   <p><a href="@routes.Application.blank" class="btn btn-success"><i class="icon-plus icon-white"></i> Add Product</a></p>
 
   @if(!products.isEmpty) {

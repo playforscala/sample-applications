@@ -73,7 +73,7 @@ object Application extends Controller {
   def update(id: Long) = Action { implicit request =>
     productForm.bindFromRequest.fold(
       form => {
-        BadRequest(views.html.details(Some(id), form))
+        Ok(views.html.details(Some(id), form)).flashing("error" -> "Fix the errors!")
       },
       product => {
         Products.update(id, product)
