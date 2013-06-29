@@ -21,7 +21,7 @@ object SlickExample {
     // Query object.
     val products = for {
       product <- Product.sortBy(product => product.name.asc)
-    } yield (product.ean, product.name, product.description)
+    } yield (product)
 
     // Database session
     val url = "jdbc:postgresql://localhost/slick?user=slick&password=slick"
