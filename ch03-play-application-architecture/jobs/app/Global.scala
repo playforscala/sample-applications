@@ -22,7 +22,7 @@ object Global extends GlobalSettings {
       )
 
       Akka.system.scheduler.schedule(
-        0 seconds, 30 minutes, actor, "send"
+        0.seconds, 30.minutes, actor, "send"
       )
     }
   }
