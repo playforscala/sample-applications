@@ -4,7 +4,7 @@ import play.api._
 import play.api.mvc._
 import models._
 
-object Products extends Controller with WithCart {
+object Shop extends Controller with WithCart {
 
   def catalog() = Action { implicit request =>
     val products = ProductDAO.list
