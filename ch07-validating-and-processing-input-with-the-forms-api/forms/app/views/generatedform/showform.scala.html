@@ -46,7 +46,7 @@
           @helper.textarea(productForm("description"))
           @helper.inputText(productForm("ean"))
           @helper.inputText(productForm("pieces"))
-          @helper.checkbox(productForm("active"))
+          @helper.checkbox(productForm("active"), '_help -> "Active")
           
           <div class="form-actions">
             <button type="submit" class="btn btn-primary">Create Product</button>

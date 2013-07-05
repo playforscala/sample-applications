@@ -9,6 +9,7 @@ import org.joda.time.LocalDate
 import play.api.data.format.Formatter
 import scala.util.control.Exception
 import org.joda.time.LocalDateTime
+import scala.util.Try
 
 /**
  * Advanced form demonstrating a custom mapping
@@ -21,20 +22,13 @@ object AdvancedForm extends Controller {
     (dateString: String) => LocalDate.parse(dateString),
     (localDate: LocalDate) => localDate.toString)
 
-
   implicit val localDateFormatter = new Formatter[LocalDate] {
-    def bind(key: String, data: Map[String, String]) = {
-      data.get(key).toRight {
-        Seq(FormError(key, "error.required", Nil))
-      }.right.flatMap { string =>
-        Exception.allCatch[LocalDate]
-          .either(LocalDate.parse(string))
-          .left.map { exception =>
-            Seq(FormError(key, "error.date", Nil))
-          }
-      }
-    }
-
+    def bind(key: String, data: Map[String, String]) =
+      data.get(key) map { value =>
+        Try {
+          Right(LocalDate.parse(value))
+        } getOrElse Left(Seq(FormError(key, "error.date", Nil)))
+      } getOrElse Left(Seq(FormError(key, "error.required", Nil)))
 
     def unbind(key: String, ld: LocalDate) = Map(key -> ld.toString)
 
@@ -45,8 +39,7 @@ object AdvancedForm extends Controller {
   val localDateMapping3 = of(localDateFormatter)
 
   val localDateForm = Form(single(
-    "introductionDate" -> localDateMapping2
-  ))
+    "introductionDate" -> localDateMapping2))
 
   def createLocalDateForm() = Action {
     Ok(views.html.advancedform.showLocalDateForm(localDateForm))
@@ -55,9 +48,7 @@ object AdvancedForm extends Controller {
   def createLocalDate() = Action { implicit request =>
     localDateForm.bindFromRequest.fold(
       formWithErrors => Ok(views.html.advancedform.showLocalDateForm(formWithErrors)),
-      value => Ok("created: " + value)
-    )
+      value => Ok("created: " + value))
   }
-
 
 }
