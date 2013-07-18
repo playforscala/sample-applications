@@ -57,7 +57,7 @@ object Products extends Controller {
   /**
    * [[play.api.data.Form]] for parsing new-product data from requests.
    */
-  private val newProductForm = makeProductForm("validation.ean.duplicate", isUniqueEan(_))
+  private val productForm = makeProductForm("validation.ean.duplicate", isUniqueEan(_))
 
   /**
    * Generates a [[play.api.data.Form]][[[models.Product]]] with a duplicate-EAN
@@ -83,11 +83,11 @@ object Products extends Controller {
    */
   def newProduct = Action { implicit request =>
     val form = if (flash.get("error").isDefined) {
-      val errorForm = newProductForm.bind(flash.data)
+      val errorForm = productForm.bind(flash.data)
 
         errorForm
     } else
-      newProductForm
+      productForm
 
     Ok(views.html.products.editProduct(form))
   }
@@ -105,7 +105,7 @@ object Products extends Controller {
    * Saves a new product’s details.
    */
   def save = Action { implicit request =>
-    val newProductForm = newProductForm.bindFromRequest()
+    val newProductForm = productForm.bindFromRequest()
 
     newProductForm.fold(
       hasErrors = { form =>
