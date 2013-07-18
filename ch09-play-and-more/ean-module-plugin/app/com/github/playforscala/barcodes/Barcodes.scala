@@ -18,8 +18,8 @@ object Barcodes {
   def renderImage(ean: Long): Future[Try[Array[Byte]]] = {
     implicit val timeout = Timeout(20 seconds)
 
-    barcodeCache ? RenderImage(ean) map { _ match {
+    barcodeCache ? RenderImage(ean) map {
       case RenderResult(result) => result
-    } }
+    }
   }
 }
