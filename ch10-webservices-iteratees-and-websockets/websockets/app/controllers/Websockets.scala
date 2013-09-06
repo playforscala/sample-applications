@@ -23,8 +23,8 @@ object WebSockets extends Controller {
     }
 
     val in = Iteratee.ignore[String]
-    val out = Enumerator.generateM {
-      Promise.timeout(Some(getLoadAverage), 3 seconds)
+    val out = Enumerator.repeatM {
+      Promise.timeout(getLoadAverage, 3 seconds)
     }
 
     (in, out)
