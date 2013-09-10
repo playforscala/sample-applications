@@ -10,7 +10,7 @@ object ApplicationBuild extends Build {
   val appDependencies = Seq(
     // Add your project dependencies here,
     jdbc,
-    "com.typesafe" %% "slick" % "1.0.0-RC1",
+    "com.typesafe.slick" %% "slick" % "1.0.1",
     "org.slf4j" % "slf4j-nop" % "1.6.4",
     "postgresql" % "postgresql" % "9.1-901.jdbc4"
   )

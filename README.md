@@ -15,7 +15,7 @@ The samples
 
 This is a work in progress, we're currently busy finishing and uploading the sample applications for the remaining chapters.
 
-Most applications are updated for *Play 2.1-RC1 or Play 2.1-RC2*, and have an index page that shows links to the pages that demo the features of that application.
+All applications are updated for *Play 2.1.3*, and have an index page that shows links to the pages that demo the features of that application.
 
 There is a separate branch *play-2.0* with older samples for Play 2.0.4.
 
