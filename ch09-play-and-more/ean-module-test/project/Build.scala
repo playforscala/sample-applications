@@ -8,7 +8,7 @@ object ApplicationBuild extends Build {
   val appVersion      = "1.0-SNAPSHOT"
 
   val appDependencies = Seq(
-    "ean-module" %% "ean-module" % "1.0-SNAPSHOT"
+    "playforscala" %% "ean-module" % "1.0-SNAPSHOT"
   )
 
 
