@@ -36,8 +36,8 @@ object Products extends Controller {
   }
 
   def newProduct = Action { implicit request =>
-    val form = if (flash.get("error").isDefined)
-      productForm.bind(flash.data)
+    val form = if (request.flash.get("error").isDefined)
+      productForm.bind(request.flash.data)
     else
       productForm
 
