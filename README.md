@@ -13,11 +13,11 @@ The book [Play for Scala](http://bit.ly/playscala) is published by Manning, and 
 The samples
 -----------
 
-This is a work in progress, we're currently busy finishing and uploading the sample applications for the remaining chapters.
+The Play version that is used in the book is 2.1.3. These samples are updated to newer versions of Play as well. For each minor Play version, we also give a brief overview of changes in Play to keep in mind.
 
-All applications are updated for *Play 2.1.3*, and have an index page that shows links to the pages that demo the features of that application.
+Samples for older versions of Play are available in their respective branches. Pick the play-2.1 branch if you want to stick to the version used in the book.
 
-There is a separate branch *play-2.0* with older samples for Play 2.0.4.
+All application have an index page that shows links to the pages that demo the features of that application.
 
 The authors
 -----------
