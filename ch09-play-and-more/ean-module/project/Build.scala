@@ -14,7 +14,7 @@ object ApplicationBuild extends Build {
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
     publishTo := Some(Resolver.file("Our repository",
-      new File("/Users/paco/writing/playforscala.github.com"))),
+      new File("/tmp/playforscala"))),
     organization := "playforscala"
   )
 

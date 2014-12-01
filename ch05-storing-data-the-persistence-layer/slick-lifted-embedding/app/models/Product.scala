@@ -4,6 +4,7 @@ import slick.driver.H2Driver.simple._
 import Database.threadLocalSession
 import play.api.Logger
 import play.api.db.DB
+import play.api.Play.current
 
 /**
  * Product domain model.
@@ -65,6 +66,5 @@ object ProductDatabase {
     }
   }
 
-  def getAllProductsWithStockItems: Map[Product, List[StockItem]] = {
-  }
+  def getAllProductsWithStockItems: Map[Product, List[StockItem]] = ???
 }

@@ -1,7 +1,7 @@
 package models
 
 import play.api.db.slick.Config.driver.simple._
-import play.api.db.slick.DB.withSession
+import play.api.db.slick.DB
 import play.api.Play.current
 import scala.slick.lifted.Query
 
@@ -28,26 +28,26 @@ object Products extends Table[Product]("products") {
    * Deletes a product.
    */
   def delete(id: Long) {
-    withSession { implicit session =>
+    DB.withSession { implicit session: Session =>
       Products.where(_.id === id).delete
     }
   }
 
-  def find(id: Long): Option[Product] = withSession { implicit session =>
+  def find(id: Long): Option[Product] = DB.withSession { implicit session: Session =>
     Query(Products).filter(_.id === id).list.headOption
   }
 
   /**
    * Returns the product with the given EAN code.
    */
-  def findByEan(ean: Long): Option[Product] = withSession { implicit session =>
+  def findByEan(ean: Long): Option[Product] = DB.withSession { implicit session: Session =>
     Query(Products).filter(_.ean === ean).list.headOption
   }
 
   /**
    * Returns all products sorted by EAN code.
    */
-  def findAll: List[Product] = withSession { implicit session =>
+  def findAll: List[Product] = DB.withSession { implicit session: Session =>
     Query(Products).sortBy(_.ean).list
   }
 
@@ -55,7 +55,7 @@ object Products extends Table[Product]("products") {
    * Inserts the given product.
    */
   def insert(product: Product) {
-    withSession { implicit session =>
+    DB.withSession { implicit session: Session =>
       Products.forInsert.insert(product)
     }
   }
@@ -64,7 +64,7 @@ object Products extends Table[Product]("products") {
    * Updates the given product.
    */
   def update(id: Long, product: Product) {
-    withSession { implicit session =>
+    DB.withSession { implicit session: Session =>
       Products.where(_.id === id).update(product)
     }
   }

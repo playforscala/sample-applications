@@ -7,6 +7,7 @@ import akka.pattern.ask
 import akka.util.Timeout
 import play.api.Play.current
 import play.api.libs.concurrent.Akka
+import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.iteratee.{ Concurrent, Enumerator, Iteratee }
 import play.api.mvc.{ Action, Controller, WebSocket }
 import scala.language.postfixOps
@@ -38,7 +39,7 @@ class ChatRoom extends Actor {
       if (!users.contains(nick)) {
         val iteratee = Iteratee.foreach[String] { message =>
           self ! Broadcast("%s: %s" format (nick, message))
-        }.mapDone { _ =>
+        }.map { _ =>
           self ! Leave(nick)
         }
         users += nick
