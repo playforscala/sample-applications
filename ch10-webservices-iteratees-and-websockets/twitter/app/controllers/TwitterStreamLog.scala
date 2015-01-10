@@ -3,6 +3,7 @@ package controllers
 import models.Tweet
 import play.api.Play
 import play.api.Play.current
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.iteratee.Iteratee
 import play.api.libs.json.{ JsValue, Reads }
 import play.api.libs.oauth.{ ConsumerKey, OAuthCalculator, RequestToken }

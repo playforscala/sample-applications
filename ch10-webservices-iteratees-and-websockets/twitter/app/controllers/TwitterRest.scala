@@ -2,27 +2,36 @@ package controllers
 
 import scala.concurrent.Await
 import scala.concurrent.duration.DurationInt
-
 import models.Tweet
 import models.Tweet._
 import play.api.Logger
+import play.api.Play
 import play.api.Play.current
 import play.api.cache.{ Cache, Cached }
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.Json
 import play.api.libs.ws.WS
 import play.api.mvc.{ Action, Controller }
+import play.api.libs.oauth.{ ConsumerKey, OAuthCalculator, RequestToken }
 
 object TwitterRest extends Controller {
+
+  val consumerKey = ConsumerKey(
+    key = Play.configuration getString "twitter.consumerkey" getOrElse "",
+    secret = Play.configuration getString "twitter.consumersecret" getOrElse "")
+
+  val accessToken = RequestToken(
+    token = Play.configuration getString "twitter.accesstoken" getOrElse "",
+    secret = Play.configuration getString "twitter.accesstokensecret" getOrElse "")
 
   def blocking() = Action {
     val results = 3
     val query = """paperclip OR "paper clip""""
 
-    val responsePromise = WS.url("http://search.twitter.com/search.json").withQueryString("q" -> query, "rpp" -> results.toString).get
-    val response = Await.result(responsePromise, 10 seconds)
+    val responsePromise = WS.url("https://api.twitter.com/1.1/search/tweets.json").withQueryString("q" -> query, "rpp" -> results.toString).sign(OAuthCalculator(consumerKey, accessToken)).get
+    val response = Await.result(responsePromise, 10.seconds)
 
-    val tweets = Json.parse(response.body).\("results").as[Seq[Tweet]]
+    val tweets = Json.parse(response.body).\("statuses").as[Seq[Tweet]]
 
     // Cheating for the screenshot in the book ;)
     /*
@@ -35,53 +44,47 @@ object TwitterRest extends Controller {
     Ok(views.html.twitterrest.tweetlist(tweets))
   }
 
-  def nonblocking() = Action {
-    Async {
-      val results = 3
-      val query = "paperclip OR \"paper clip\""
+  def nonblocking() = Action.async {
+    val results = 3
+    val query = "paperclip OR \"paper clip\""
 
-      val responsePromise = WS.url("http://search.twitter.com/search.json").withQueryString("q" -> query, "rpp" -> results.toString).get
+    val responsePromise = WS.url("https://api.twitter.com/1.1/search/tweets.json").withQueryString("q" -> query, "rpp" -> results.toString).sign(OAuthCalculator(consumerKey, accessToken)).get
+
+    responsePromise.map { response =>
+      val tweets = Json.parse(response.body).\("statuses").as[Seq[Tweet]]
+      Ok(views.html.twitterrest.tweetlist(tweets))
+    }
+  }
+
+  def cached() = Action.async {
+    val results = 3
+    val query = "paperclip OR \"paper clip\""
+
+    Cache.getOrElse("tweets", 10) {
+      val responsePromise = WS.url("https://api.twitter.com/1.1/search/tweets.json")
+        .withQueryString("q" -> query, "rpp" -> results.toString).sign(OAuthCalculator(consumerKey, accessToken)).get
+
+      Logger.info("Requesting tweets from Twitter")
 
       responsePromise.map { response =>
-        val tweets = Json.parse(response.body).\("results").as[Seq[Tweet]]
+        val tweets = Json.parse(response.body).\("statuses").as[Seq[Tweet]]
         Ok(views.html.twitterrest.tweetlist(tweets))
       }
     }
   }
 
-  def cached() = Action {
-    Async {
+  def cached2() = Cached("tweets2", 10) {
+    Action.async {
+      Logger.info("Requesting tweets from Twitter")
+
       val results = 3
       val query = "paperclip OR \"paper clip\""
 
-      Cache.getOrElse("tweets", 10) {
-        val responsePromise = WS.url("http://search.twitter.com/search.json")
-          .withQueryString("q" -> query, "rpp" -> results.toString).get
+      val responsePromise = WS.url("https://api.twitter.com/1.1/search/tweets.json").withQueryString("q" -> query, "rpp" -> results.toString).sign(OAuthCalculator(consumerKey, accessToken)).get
 
-        Logger.info("Requesting tweets from Twitter")
-
-        responsePromise.map { response =>
-          val tweets = Json.parse(response.body).\("results").as[Seq[Tweet]]
-          Ok(views.html.twitterrest.tweetlist(tweets))
-        }
-      }
-    }
-  }
-
-  def cached2() = Cached("tweets2", 10) {
-    Action {
-      Async {
-        Logger.info("Requesting tweets from Twitter")
-
-        val results = 3
-        val query = "paperclip OR \"paper clip\""
-
-        val responsePromise = WS.url("http://search.twitter.com/search.json").withQueryString("q" -> query, "rpp" -> results.toString).get
-
-        responsePromise map { response =>
-          val tweets = Json.parse(response.body).\("results").as[Seq[Tweet]]
-          Ok(views.html.twitterrest.tweetlist(tweets))
-        }
+      responsePromise map { response =>
+        val tweets = Json.parse(response.body).\("statuses").as[Seq[Tweet]]
+        Ok(views.html.twitterrest.tweetlist(tweets))
       }
     }
   }
