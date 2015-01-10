@@ -3,21 +3,19 @@ package amazon
 import java.nio.ByteBuffer
 import java.text.SimpleDateFormat
 import java.util.Date
-
 import org.apache.commons.codec.binary.Base64
 import org.glassfish.grizzly.memory.ByteBufferWrapper
-
 import com.ning.http.client.{ AsyncHttpClient, Request, RequestBuilder }
 import com.ning.http.client.providers.grizzly.{ FeedableBodyGenerator, GrizzlyAsyncHttpProvider }
-
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 import play.api.Play
 import play.api.Play.current
 import play.api.http.HeaderNames
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.iteratee.Iteratee
 import play.api.libs.ws.WS
-import play.api.mvc.{ BodyParser, RequestHeader, Result, Results }
+import play.api.mvc.{ BodyParser, RequestHeader, Results, SimpleResult }
 
 object AmazonBodyParsers extends Results {
 
@@ -40,7 +38,7 @@ object AmazonBodyParsers extends Results {
       date, aclHeader.map("x-amz-acl:" + _).getOrElse(""), path)
       .mkString("\n")
 
-    // Play's Crypto.sign method returns a Hex string, 
+    // Play's Crypto.sign method returns a Hex string,
     // instead of Base64, so we do hashing ourselves.
     val mac = Mac.getInstance("HmacSHA1")
     mac.init(new SecretKeySpec(secretKey.getBytes("UTF-8"), "HmacSHA1"))
@@ -57,7 +55,7 @@ object AmazonBodyParsers extends Results {
       S3Writer(objectId, request, bodyGenerator)
   }
 
-  def S3Writer(objectId: String, request: Request, bodyGenerator: FeedableBodyGenerator): Iteratee[Array[Byte], Either[Result, String]] = {
+  def S3Writer(objectId: String, request: Request, bodyGenerator: FeedableBodyGenerator): Iteratee[Array[Byte], Either[SimpleResult, String]] = {
     // We execute the request, but we can send body chunks afterwards.
     val responseFuture = client.executeRequest(request)
 
@@ -66,10 +64,12 @@ object AmazonBodyParsers extends Results {
         val isLast = false
         generator.feed(new ByteBufferWrapper(ByteBuffer.wrap(bytes)), isLast)
         generator
-    } mapDone { generator =>
+    } map { generator =>
       val isLast = true
       generator.feed(emptyBuffer, isLast)
       val response = responseFuture.get
+      println("Got the response: " + response.getResponseBody)
+      println(response.getStatusCode)
       response.getStatusCode match {
         case 200 => Right(objectId)
         case _ => Left(Forbidden(response.getResponseBody))
@@ -86,7 +86,7 @@ object AmazonBodyParsers extends Results {
       .getOrElse("binary/octet-stream")
     val auth = "AWS %s:%s" format (key, sign("PUT", path, secret,
       expires, Some(contentType), Some(acl)))
-    val url = "https://%s.s3.amazonaws.com/%s" format (bucket, objectId)
+    val url = "http://%s.s3.amazonaws.com/%s" format (bucket, objectId)
     val bodyGenerator = new FeedableBodyGenerator()
     val request = new RequestBuilder("PUT")
       .setUrl(url)
