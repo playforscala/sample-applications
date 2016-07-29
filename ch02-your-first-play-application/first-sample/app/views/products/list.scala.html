@@ -1,15 +1,10 @@
-@import play.api.Play.current
-@import play.api.i18n.I18nSupport
-@import play.api.i18n.Messages
-@import play.api.i18n.Messages.Implicits._
-
 @*
   Displays a products list.
 
   @param products A list of products
   @param flash Flash scope
 *@
-@(products: List[Product])(implicit flash: Flash, request: RequestHeader, lang: Lang)
+@(products: List[Product])(implicit flash: Flash, request: RequestHeader, lang: Lang, messages: Messages)
 
 @main(Messages("products.list")) {
 

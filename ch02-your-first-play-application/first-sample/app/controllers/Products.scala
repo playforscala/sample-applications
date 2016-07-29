@@ -7,14 +7,16 @@ import play.api.data.Form
 import play.api.data.Forms._
 
 import javax.inject.Inject
-
+import play.api.Configuration
 //import play.api.Play.current
 import play.api.i18n.{I18nSupport,MessagesApi, Messages}
 
 /**
  * Controller for products HTTP interface.
+ * injecting configuration:
+ * http://stackoverflow.com/questions/36955237/play-2-5-x-method-current-in-object-play-is-deprecated-this-is-a-static-refere
  */
-class Products @Inject()(val messagesApi: MessagesApi) extends Controller with I18nSupport {
+class Products @Inject()(val messagesApi: MessagesApi, configuration: Configuration) extends Controller with I18nSupport {
 
   /**
    * Returns true if the given EAN’s checksum is correct.
