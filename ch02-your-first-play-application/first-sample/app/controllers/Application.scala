@@ -6,7 +6,7 @@ import play.api.mvc._
 /**
  * Main application controller.
  */
-object Application extends Controller {
+class Application extends Controller {
 
   /**
    * Redirect to the product list.

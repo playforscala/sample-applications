@@ -5,12 +5,16 @@ import play.api.mvc.Controller
 import models.Product
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.i18n.Messages
+
+import javax.inject.Inject
+
+//import play.api.Play.current
+import play.api.i18n.{I18nSupport,MessagesApi, Messages}
 
 /**
  * Controller for products HTTP interface.
  */
-object Products extends Controller {
+class Products @Inject()(val messagesApi: MessagesApi) extends Controller with I18nSupport {
 
   /**
    * Returns true if the given EAN’s checksum is correct.
@@ -82,8 +86,8 @@ object Products extends Controller {
    * Displays a blank form for adding a new product.
    */
   def newProduct = Action { implicit request =>
-    val form = if (flash.get("error").isDefined) {
-      val errorForm = productForm.bind(flash.data)
+    val form = if (request.flash.get("error").isDefined) {
+      val errorForm = productForm.bind(request.flash.data)
 
         errorForm
     } else
@@ -124,8 +128,8 @@ object Products extends Controller {
    * Displays a form for editing product details.
    */
   def edit(ean: Long) = Action { implicit request =>
-    val form = if (flash.get("error").isDefined)
-      updateProductForm(ean).bind(flash.data)
+    val form = if (request.flash.get("error").isDefined)
+      updateProductForm(ean).bind(request.flash.data)
     else
       updateProductForm(ean).fill(Product.findByEan(ean).get)
 
