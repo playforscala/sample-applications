@@ -2,8 +2,10 @@ package controllers
 
 import play.api.mvc.{Action, Controller}
 
+import javax.inject.Inject
+import play.api.Configuration
 
-class Barcodes extends Controller {
+class Barcodes @Inject()(val configuration: Configuration) extends Controller {
 
   val ImageResolution = 144
 
