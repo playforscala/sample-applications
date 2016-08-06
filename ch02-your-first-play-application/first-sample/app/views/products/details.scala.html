@@ -4,7 +4,8 @@
   @param productForm A form for capturing product details.
   @param flash Flash scope
 *@
-@(product: Product)(implicit flash: Flash, lang: Lang)
+
+@(product: Product)(implicit flash: Flash, lang: Lang, messages: Messages)
 
 @main(Messages("products.details", product.name)) {
   <h2>

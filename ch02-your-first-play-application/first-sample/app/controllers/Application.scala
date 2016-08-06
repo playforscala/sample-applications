@@ -3,10 +3,13 @@ package controllers
 import play.api._
 import play.api.mvc._
 
+import javax.inject.Inject
+import play.api.Configuration
+
 /**
  * Main application controller.
  */
-object Application extends Controller {
+class Application @Inject()(val configuration: Configuration) extends Controller {
 
   /**
    * Redirect to the product list.

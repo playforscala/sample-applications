@@ -1,19 +1,19 @@
-@(productForm: Form[Product], ean: Option[Long] = None)(implicit flash: Flash, lang: Lang)
-@import helper._
-@import helper.twitterBootstrap._
+@(productForm: Form[Product], ean: Option[Long] = None)(implicit flash: Flash, lang: Lang, messages: Messages)
+
+@import b3.vertical.fieldConstructor  // Declares a vertical field constructor as default
 
 @main(Messages("products.form")) {
   <h2>@Messages("products.form")</h2>
 
-  @helper.form(action = ean.map(routes.Products.update(_)).getOrElse(routes.Products.save())) {
-    <fieldset>
-      <legend>
-        @Messages("products.details", productForm("name").value.getOrElse(Messages("products.new")))
-      </legend>
-      @helper.inputText(productForm("ean"))
-      @helper.inputText(productForm("name"))
-      @helper.textarea(productForm("description"))
-    </fieldset>
-    <p><input type="submit" class="btn primary" value='@ean.map(_=> Messages("products.edit.submit")).getOrElse(Messages("products.new.submit"))'></p>
-  }
+  @b3.form(action = ean.map(routes.Products.update(_)).getOrElse(routes.Products.save())) {
+      <fieldset>
+        <legend>
+          @Messages("products.details", productForm("name").value.getOrElse(Messages("products.new")))
+        </legend>
+        @b3.text(productForm("ean"))
+        @b3.text(productForm("name"))
+        @b3.textarea(productForm("description"))
+      </fieldset>
+      <p><input type="submit" class="btn primary" value='@ean.map(_=> Messages("products.edit.submit")).getOrElse(Messages("products.new.submit"))'></p>
+    }
 }
