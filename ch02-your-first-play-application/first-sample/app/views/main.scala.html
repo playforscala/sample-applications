@@ -1,4 +1,6 @@
-@(title: String)(content: Html)(implicit flash: Flash, lang: Lang, messages: Messages)
+@import play.api.Configuration
+
+@(title: String)(content: Html)(implicit flash: Flash, lang: Lang, messages: Messages, configuration: Configuration)
 <!DOCTYPE html>
 <html>
 <head>

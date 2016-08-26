@@ -1,4 +1,5 @@
-@(productForm: Form[Product], ean: Option[Long] = None)(implicit flash: Flash, lang: Lang, messages: Messages)
+@import play.api.Configuration
+@(productForm: Form[Product], ean: Option[Long] = None)(implicit flash: Flash, lang: Lang, messages: Messages, configuration: Configuration)
 
 @import b3.vertical.fieldConstructor  // Declares a vertical field constructor as default
 

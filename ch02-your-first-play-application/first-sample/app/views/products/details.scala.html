@@ -4,8 +4,8 @@
   @param productForm A form for capturing product details.
   @param flash Flash scope
 *@
-
-@(product: Product)(implicit flash: Flash, lang: Lang, messages: Messages)
+@import play.api.Configuration
+@(product: Product)(implicit flash: Flash, lang: Lang, messages: Messages, configuration: Configuration)
 
 @main(Messages("products.details", product.name)) {
   <h2>

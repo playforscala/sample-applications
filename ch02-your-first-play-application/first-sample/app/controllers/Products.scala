@@ -16,7 +16,7 @@ import play.api.i18n.{I18nSupport,MessagesApi, Messages}
  * injecting configuration:
  * http://stackoverflow.com/questions/36955237/play-2-5-x-method-current-in-object-play-is-deprecated-this-is-a-static-refere
  */
-class Products @Inject()(val messagesApi: MessagesApi, configuration: Configuration) extends Controller with I18nSupport {
+class Products @Inject()(val messagesApi: MessagesApi, implicit val configuration: Configuration) extends Controller with I18nSupport {
 
   /**
    * Returns true if the given EAN’s checksum is correct.
