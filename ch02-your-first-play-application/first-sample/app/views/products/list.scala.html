@@ -4,7 +4,8 @@
   @param products A list of products
   @param flash Flash scope
 *@
-@(products: List[Product])(implicit flash: Flash, request: RequestHeader, lang: Lang, messages: Messages)
+@import play.api.Configuration
+@(products: List[Product])(implicit flash: Flash, request: RequestHeader, lang: Lang, messages: Messages, configuration: Configuration)
 
 @main(Messages("products.list")) {
 
