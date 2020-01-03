@@ -7,3 +7,4 @@ This sample shows a minimal controller action, a controller action with a reques
 test links:
 http://localhost:9000/
 http://localhost:9000/hello?n=lezhangnet
+http://localhost:9000/helloPage?n=lezhangnet 
