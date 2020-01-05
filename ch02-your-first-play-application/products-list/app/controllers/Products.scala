@@ -1,9 +1,10 @@
 package controllers
 
-import play.api.mvc.{Action, Controller}
+import javax.inject._
+import play.api.mvc._
 import models.Product
 
-object Products extends Controller {
+class Products @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
   
   def list = Action { implicit request =>
 
