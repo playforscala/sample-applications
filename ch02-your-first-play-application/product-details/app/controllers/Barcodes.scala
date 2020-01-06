@@ -1,9 +1,10 @@
 package controllers
 
-import play.api.mvc.{Action, Controller}
+import javax.inject._
+import play.api.mvc._
 
 
-object Barcodes extends Controller {
+class Barcodes @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
   val ImageResolution = 144
 
@@ -26,17 +27,17 @@ object Barcodes extends Controller {
 
     import java.io.ByteArrayOutputStream
     import java.awt.image.BufferedImage
-    import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider
-    import org.krysalis.barcode4j.impl.upcean.EAN13Bean
+//    import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider
+//    import org.krysalis.barcode4j.impl.upcean.EAN13Bean
 
     var output: ByteArrayOutputStream = new ByteArrayOutputStream
-    var canvas: BitmapCanvasProvider =
-      new BitmapCanvasProvider(output, mimeType, ImageResolution,
-        BufferedImage.TYPE_BYTE_BINARY, false, 0)
+//    var canvas: BitmapCanvasProvider =
+//      new BitmapCanvasProvider(output, mimeType, ImageResolution,
+//        BufferedImage.TYPE_BYTE_BINARY, false, 0)
 
-    val barCode = new EAN13Bean()
-    barCode.generateBarcode(canvas, String valueOf ean)
-    canvas.finish
+//    val barCode = new EAN13Bean()
+//    barCode.generateBarcode(canvas, String valueOf ean)
+//    canvas.finish
 
     output.toByteArray
   }

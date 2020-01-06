@@ -1,6 +1,6 @@
-@(products: List[Product])(implicit lang: Lang)
+@(products: List[Product])
 
-@main(Messages("application.name")) {
+@main("Product catalog") {
 
   <dl class="products">
     @for(product <- products) {
