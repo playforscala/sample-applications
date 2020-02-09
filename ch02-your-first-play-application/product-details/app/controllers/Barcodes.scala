@@ -27,17 +27,17 @@ class Barcodes @Inject()(cc: ControllerComponents) extends AbstractController(cc
 
     import java.io.ByteArrayOutputStream
     import java.awt.image.BufferedImage
-//    import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider
-//    import org.krysalis.barcode4j.impl.upcean.EAN13Bean
+    import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider
+    import org.krysalis.barcode4j.impl.upcean.EAN13Bean
 
     var output: ByteArrayOutputStream = new ByteArrayOutputStream
-//    var canvas: BitmapCanvasProvider =
-//      new BitmapCanvasProvider(output, mimeType, ImageResolution,
-//        BufferedImage.TYPE_BYTE_BINARY, false, 0)
+    var canvas: BitmapCanvasProvider =
+      new BitmapCanvasProvider(output, mimeType, ImageResolution,
+        BufferedImage.TYPE_BYTE_BINARY, false, 0)
 
-//    val barCode = new EAN13Bean()
-//    barCode.generateBarcode(canvas, String valueOf ean)
-//    canvas.finish
+    val barCode = new EAN13Bean()
+    barCode.generateBarcode(canvas, String valueOf ean)
+    canvas.finish
 
     output.toByteArray
   }
