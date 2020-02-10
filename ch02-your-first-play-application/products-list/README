@@ -1,1 +1,10 @@
 # 2.1 The product list page
+
+test link:
+http://localhost:9000/
+=> http://localhost:9000/products
+
+TODO:
+adding back temp disabled functions in:
+https://github.com/lezhangnet/playforscala/commit/77e2e9d7bcbb83ecd1dd5c9288bb0ee4161ecb69
+i.e. lang & environment.user
