@@ -1,19 +1,19 @@
-@(product: Product)
+@(product: Product)(implicit messagesProvider: MessagesProvider, config: play.api.Configuration, lang: Lang)
 
-@main("Product: " + product.name) {
+@main(Messages("products.details", product.name)) {
   <h2>
     @tags.barcode(product.ean)
-    Product: @product.name
+    @Messages("products.details", product.name)
   </h2>
 
   <dl class="dl-horizontal">
-    <dt>EAN:</dt>
+    <dt>@Messages("ean"):</dt>
     <dd>@product.ean</dd>
 
-    <dt>Name:</dt>
+    <dt>@Messages("name"):</dt>
     <dd>@product.name</dd>
 
-    <dt>Description:</dt>
+    <dt>@Messages("description"):</dt>
     <dd>@product.description</dd>
   </dl>
 }

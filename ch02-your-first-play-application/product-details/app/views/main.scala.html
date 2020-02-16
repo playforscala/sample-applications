@@ -1,4 +1,4 @@
-@(title: String)(content: Html)
+@(title: String)(content: Html)(implicit messagesProvider: MessagesProvider, config: play.api.Configuration, lang: Lang)
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +14,7 @@
   <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container">
-        <a class="brand" href="@routes.Application.index()">Product catalog</a>
+        <a class="brand" href="@routes.Application.index()">@Messages("application.name")</a>
       </div>
     </div>
   </div>
