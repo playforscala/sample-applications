@@ -13,6 +13,7 @@ class Products @Inject()(cc: ControllerComponents)(c: play.api.Configuration)
     val products = Product.findAll
 
     implicit lazy val config = c
+    implicit lazy val lang = request.lang
     Ok(views.html.products.list(products))
   }
 }

@@ -1,6 +1,7 @@
-@()(implicit config: play.api.Configuration)
+@()(implicit config: play.api.Configuration, lang: Lang)
 
 <footer>
+  lang = @lang.code,
   user = @config.underlying.getString("environment.user"),
   date = @(new java.util.Date().format("yyyy-MM-dd HH:mm"))
 </footer>
