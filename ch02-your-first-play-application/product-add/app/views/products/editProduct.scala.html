@@ -1,6 +1,5 @@
-@(productForm: Form[Product])(implicit flash: Flash, lang: Lang)
+@(productForm: Form[Product])(implicit flash: Flash, messagesProvider: MessagesProvider, config: play.api.Configuration, lang: Lang)
 @import helper._
-@import helper.twitterBootstrap._
 
 @main(Messages("products.form")) {
   <h2>@Messages("products.form")</h2>

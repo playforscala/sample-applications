@@ -1,4 +1,10 @@
-This is your new Play 2.0 application
-=====================================
+# 2.3 Adding a new product
 
-This file will be packaged with your application, when using `play dist`.
+what's more from 2.2:
+- add a new product w/ form, flash and validation
+
+test link:
+http://localhost:9000/
+=> http://localhost:9000/products
+http://localhost:9000/products/5010255079763
+http://localhost:9000/products/new
