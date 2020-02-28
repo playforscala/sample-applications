@@ -5,7 +5,7 @@
   @param flash Flash scope
 *@
 
-@(product: Product)(implicit flash: Flash, lang: Lang, messages: Messages)
+@(product: Product)(implicit flash: Flash, lang: Lang, messages: Messages, config: play.api.Configuration)
 
 @main(Messages("products.details", product.name)) {
   <h2>
