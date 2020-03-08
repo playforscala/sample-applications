@@ -1,13 +1,13 @@
 package controllers
 
+import javax.inject._
 import play.api.mvc._
-import play.api.mvc.Controller
 import models.Product
 
 /**
  * Alternative controller that uses the combinator-based Writes.
  */
-object ProductsWithCombinators extends Controller {
+class ProductsWithCombinators @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
   import play.api.libs.json._
   import play.api.libs.functional.syntax._
