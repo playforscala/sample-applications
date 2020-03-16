@@ -13,11 +13,9 @@ function loadProductDetails(tableRow) {
 
 // Save an edited table row to the server
 function saveRow($row) {
-    console.log("saving")
     var cells = $row.children().map(function() {
         return $(this).text()
     }).get()
-    console.log(cells)
     product = {
         ean: parseInt(cells[0]),
         name: cells[1],
