@@ -12,6 +12,7 @@ import play.api.Logger
  * Controller for products HTTP interface.
  */
 class Products @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
+  val logger: Logger = Logger("Products")
 
   /**
    * Returns an array of products’ EAN codes.
@@ -54,7 +55,7 @@ class Products @Inject()(cc: ControllerComponents) extends AbstractController(cc
    * Saves a product
    */
   def save(ean: Long) = Action(parse.json) { request =>
-    //Logger.info("start")
+    logger.info("save")
     try {
       val productJson = request.body
       val product = productJson.as[Product]
@@ -64,7 +65,7 @@ class Products @Inject()(cc: ControllerComponents) extends AbstractController(cc
     catch {
       case e:IllegalArgumentException => BadRequest("Product not found")
       case e:Exception => {
-        //Logger.info("exception = %s" format e)
+        logger.info("exception = %s" format e)
         BadRequest("Invalid EAN")
       }
     }
