@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.mvc._
-import play.api.mvc.Controller
 import models.Product
 import play.api.data.Form
 import play.api.data.Forms._
@@ -16,7 +15,9 @@ import play.api.i18n.{I18nSupport,MessagesApi, Messages}
  * injecting configuration:
  * http://stackoverflow.com/questions/36955237/play-2-5-x-method-current-in-object-play-is-deprecated-this-is-a-static-refere
  */
-class Products @Inject()(val messagesApi: MessagesApi, configuration: Configuration) extends Controller with I18nSupport {
+class Products @Inject()(cc: ControllerComponents)(c: Configuration)
+  extends AbstractController(cc)
+  with I18nSupport {
 
   /**
    * Returns true if the given EAN’s checksum is correct.
@@ -81,6 +82,8 @@ class Products @Inject()(val messagesApi: MessagesApi, configuration: Configurat
    * Displays a products list.
    */
   def list = Action { implicit request =>
+    implicit lazy val lang = request.lang
+    implicit lazy val config = c
     Ok(views.html.products.list(Product.findAll))
   }
 
@@ -95,6 +98,8 @@ class Products @Inject()(val messagesApi: MessagesApi, configuration: Configurat
     } else
       productForm
 
+    implicit lazy val lang = request.lang
+    implicit lazy val config = c
     Ok(views.html.products.editProduct(form))
   }
 
@@ -103,6 +108,8 @@ class Products @Inject()(val messagesApi: MessagesApi, configuration: Configurat
    */
   def show(ean: Long) = Action { implicit request =>
     Product.findByEan(ean).map { product =>
+      implicit lazy val lang = request.lang
+      implicit lazy val config = c
       Ok(views.html.products.details(product))
     }.getOrElse(NotFound)
   }
@@ -135,6 +142,8 @@ class Products @Inject()(val messagesApi: MessagesApi, configuration: Configurat
     else
       updateProductForm(ean).fill(Product.findByEan(ean).get)
 
+    implicit lazy val lang = request.lang
+    implicit lazy val config = c
     Ok(views.html.products.editProduct(form, Some(ean)))
   }
 

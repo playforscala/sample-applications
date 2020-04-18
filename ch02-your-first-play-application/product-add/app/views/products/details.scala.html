@@ -1,4 +1,4 @@
-@(product: Product)(implicit flash: Flash, lang: Lang)
+@(product: Product)(implicit flash: Flash, messagesProvider: MessagesProvider, config: play.api.Configuration, lang: Lang)
 
 @main(Messages("products.details", product.name)) {
   <h2>

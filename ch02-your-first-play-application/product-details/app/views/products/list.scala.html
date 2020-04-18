@@ -1,4 +1,4 @@
-@(products: List[Product])(implicit lang: Lang)
+@(products: List[Product])(implicit messagesProvider: MessagesProvider, config: play.api.Configuration, lang: Lang)
 
 @main(Messages("application.name")) {
 

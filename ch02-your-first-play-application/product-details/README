@@ -1,4 +1,10 @@
-This is your new Play 2.0 application
-=====================================
+# 2.2 Details page
 
-This file will be packaged with your application, when using `play dist`.
+what's more from 2.1:
+- new route / controller / model / view for details page
+- new 3p library for barcode4j
+
+test link:
+http://localhost:9000/
+=> http://localhost:9000/products
+http://localhost:9000/products/5010255079763

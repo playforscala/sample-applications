@@ -1,14 +1,19 @@
 package controllers
 
-import play.api.mvc.{Action, Controller}
+import javax.inject._
+import play.api.mvc._
 import models.Product
 
-object Products extends Controller {
+class Products @Inject()(cc: ControllerComponents)(c: play.api.Configuration)
+  extends AbstractController(cc)
+  with play.api.i18n.I18nSupport {
   
   def list = Action { implicit request =>
 
     val products = Product.findAll
 
+    implicit lazy val config = c
+    implicit lazy val lang = request.lang
     Ok(views.html.products.list(products))
   }
 
@@ -16,6 +21,8 @@ object Products extends Controller {
 
     Product.findByEan(ean).map { product =>
 
+      implicit lazy val config = c
+      implicit lazy val lang = request.lang
       Ok(views.html.products.details(product))
 
     }.getOrElse(NotFound)

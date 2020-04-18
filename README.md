@@ -1,3 +1,17 @@
+This Repo
+=========
+
+This repo is a fork from the original for the book Play for Scala, but updated to Play 2.8.
+
+Updated:
+
+- 1.5 Hello Play
+- 2.1 Products List, w/ assets, config, and lang
+- 2.2 Product Details, w/ external library
+- 2.3 Add Product, w/ form
+- 2.x first-sample, w/ editing
+- 8.1 - 8.3 Building a single-page JavaScript application with JSON
+
 Play for Scala Sample Applications
 ==================================
 

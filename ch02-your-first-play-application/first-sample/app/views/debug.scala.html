@@ -1,10 +1,10 @@
-import play.api.Configuration
+@import play.api.Configuration
 
 @()(implicit lang: Lang, configuration: Configuration)
 @*
   Displays debug information for the page footer.
 *@
 
-debug: user=configuration.getString("environment.user"),
-lang=lang.code,
+debug: user=@configuration.underlying.getString("environment.user"),
+lang=@lang.code,
 date=@(new java.util.Date().format("yyyy-MM-dd"))

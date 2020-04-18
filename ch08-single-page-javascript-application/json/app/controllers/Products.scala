@@ -1,7 +1,7 @@
 package controllers
 
+import javax.inject._
 import play.api.mvc._
-import play.api.mvc.Controller
 import models.Product
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
@@ -11,7 +11,8 @@ import play.api.Logger
 /**
  * Controller for products HTTP interface.
  */
-object Products extends Controller {
+class Products @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
+  val logger: Logger = Logger("Products")
 
   /**
    * Returns an array of products’ EAN codes.
@@ -54,7 +55,7 @@ object Products extends Controller {
    * Saves a product
    */
   def save(ean: Long) = Action(parse.json) { request =>
-    Logger.info("start")
+    logger.info("save")
     try {
       val productJson = request.body
       val product = productJson.as[Product]
@@ -64,7 +65,7 @@ object Products extends Controller {
     catch {
       case e:IllegalArgumentException => BadRequest("Product not found")
       case e:Exception => {
-        Logger.info("exception = %s" format e)
+        logger.info("exception = %s" format e)
         BadRequest("Invalid EAN")
       }
     }

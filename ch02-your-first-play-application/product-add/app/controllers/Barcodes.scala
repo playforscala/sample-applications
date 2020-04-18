@@ -1,9 +1,9 @@
 package controllers
 
-import play.api.mvc.{Action, Controller}
+import javax.inject._
+import play.api.mvc._
 
-
-object Barcodes extends Controller {
+class Barcodes @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
   val ImageResolution = 144
 
